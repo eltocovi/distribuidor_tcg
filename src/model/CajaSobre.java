@@ -10,8 +10,8 @@ public class CajaSobre extends Producto {
     public CajaSobre() {
     }
 
-    public CajaSobre(int cantidadPorCaja, String edicion, String nombre, String linea, String tipo, int stock, int precio, String sku, String fecha_salida, String descripcion) {
-        super(edicion, nombre, linea, tipo, stock, precio, sku, fecha_salida, descripcion);
+    public CajaSobre(int cantidadPorCaja, String edicion, String nombre, String linea, String tipo, int stock, int precio, String sku, String fechaSalida, String descripcion) {
+        super(edicion, nombre, linea, tipo, stock, precio, sku, fechaSalida, descripcion);
         this.cantidadPorCaja = cantidadPorCaja;
     }
 

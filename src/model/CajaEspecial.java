@@ -13,8 +13,8 @@ public class CajaEspecial extends Producto{
     public CajaEspecial() {
     }
 
-    public CajaEspecial(int cantidadSobres, String cartasPromo, String regaloExtra, String edicion, String nombre, String linea, String tipo, int stock, int precio, String sku, String fecha_salida, String descripcion) {
-        super(edicion, nombre, linea, tipo, stock, precio, sku, fecha_salida, descripcion);
+    public CajaEspecial(int cantidadSobres, String cartasPromo, String regaloExtra, String edicion, String nombre, String linea, String tipo, int stock, int precio, String sku, String fechaSalida, String descripcion) {
+        super(edicion, nombre, linea, tipo, stock, precio, sku, fechaSalida, descripcion);
         this.cantidadSobres = cantidadSobres;
         this.cartasPromo = cartasPromo;
         this.regaloExtra = regaloExtra;

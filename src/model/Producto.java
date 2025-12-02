@@ -8,13 +8,13 @@ public abstract class Producto {
     private String tipo;
     private int stock, precio;
     private String sku;
-    private String fecha_salida;
+    private String fechaSalida;
     private String descripcion;
 
     public Producto() {
     }
 
-    public Producto(String edicion, String nombre, String linea, String tipo, int stock, int precio, String sku, String fecha_salida, String descripcion) {
+    public Producto(String edicion, String nombre, String linea, String tipo, int stock, int precio, String sku, String fechaSalida, String descripcion) {
         this.edicion = edicion;
         this.nombre = nombre;
         this.linea = linea;
@@ -22,7 +22,7 @@ public abstract class Producto {
         this.stock = stock;
         this.precio = precio;
         this.sku = sku;
-        this.fecha_salida = fecha_salida;
+        this.fechaSalida = fechaSalida;
         this.descripcion = descripcion;
     }
 
@@ -82,12 +82,12 @@ public abstract class Producto {
         this.sku = sku;
     }
 
-    public String getFecha_salida() {
-        return fecha_salida;
+    public String getFechaSalida() {
+        return fechaSalida;
     }
 
-    public void setFecha_salida(String fecha_salida) {
-        this.fecha_salida = fecha_salida;
+    public void setFechaSalida(String fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 
     public String getDescripcion() {
@@ -107,7 +107,7 @@ public abstract class Producto {
   
     @Override
     public String toString() {
-        return "Edicion: " + edicion + "\n Nombre: " + nombre + "\n Linea: " + linea +"\n Tipo de producto: "+ tipo + "\n Stock: " + stock +"\n SKU: "+ sku +"\n Precio "+ precio+ "\n Fecha Salida: " + fecha_salida + "\n Descripcion: "+descripcion;
+        return "Edicion: " + edicion + "\n Nombre: " + nombre + "\n Linea: " + linea +"\n Tipo de producto: "+ tipo + "\n Stock: " + stock +"\n SKU: "+ sku +"\n Precio "+ precio+ "\n Fecha Salida: " + fechaSalida + "\n Descripcion: "+descripcion;
     }
     
     
