@@ -147,7 +147,7 @@ public class ProductoDAO {
                   
                     
                     switch (tipoBd) { 
-                        case "SOBRE": 
+                        case "Caja Sobres": 
                             int cantSobre = rs.getInt("CANTIDAD_SOBRE");
                             
                             p = new CajaSobre(
@@ -156,7 +156,7 @@ public class ProductoDAO {
                             );
                             break;
 
-                        case "MAZO":
+                        case "Caja Mazos":
                             // Asumo que tu clase CajaMazo es igual a CajaSobre pero con CANTIDAD_MAZO
                             int cantMazo = rs.getInt("CANTIDAD_MAZO");
                             
@@ -166,7 +166,7 @@ public class ProductoDAO {
                             );
                             break;
                             
-                        case "ESPECIAL":
+                        case "Caja Especial":
                             // En DB: CANTIDAD_SOBRE_ESPECIAL, CARTA_PROMO, REGALO_EXTRA
                             int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
                             String promo = rs.getString("CARTA_PROMO");
