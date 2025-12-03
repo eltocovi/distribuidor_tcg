@@ -148,36 +148,33 @@ public class ProductoDAO {
                             int cantSobre = rs.getInt("CANTIDAD_SOBRE");
                             
                             p = new CajaSobre(
-                                cantSobre, // Hijo
-                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+                                cantSobre, 
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion 
 
                             );
                             break;
 
                         case "Caja Mazos":
-                            // Asumo que tu clase CajaMazo es igual a CajaSobre pero con CANTIDAD_MAZO
                             int cantMazo = rs.getInt("CANTIDAD_MAZO");
                             
                             p = new CajaMazo(
-                                cantMazo, // Hijo
-                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+                                cantMazo, 
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion 
                             );
                             break;
                             
                         case "Caja Especiales":
-                            // En DB: CANTIDAD_SOBRE_ESPECIAL, CARTA_PROMO, REGALO_EXTRA
                             int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
                             String promo = rs.getString("CARTA_PROMO");
                             String regalo = rs.getString("REGALO_EXTRA");
 
                             p = new CajaEspecial(
-                                cantEsp, promo, regalo, // Hijo (Orden específico de tu constructor)
-                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+                                cantEsp, promo, regalo, 
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion 
                             );
                             break;
                             
                         default:
-                             // Opción por si hay datos basura o nuevos tipos no implementados
                              System.out.println("Tipo no reconocido: " + tipoBd);
                              break;
                     }
