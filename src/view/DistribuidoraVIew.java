@@ -343,7 +343,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoActionPerformed
 
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtPrecioActionPerformed
     
       private void accionCajaMazo() {
