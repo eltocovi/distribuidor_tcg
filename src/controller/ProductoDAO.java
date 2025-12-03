@@ -116,14 +116,14 @@ public class ProductoDAO {
         List<Producto> lista = new ArrayList<>();
         String sql = "SELECT * FROM PRODUCTO";
 
-        // 1. Lógica dinámica: Si me diste un tipo, agrego el WHERE
+       
         if (tipoFiltro != null && !tipoFiltro.isEmpty()) {
             sql += " WHERE TIPO = ?";
         }
 
         try (PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(sql)) {
             
-            // 2. Si agregué el WHERE, asigno el parámetro
+            
             if (tipoFiltro != null && !tipoFiltro.isEmpty()) {
                 ps.setString(1, tipoFiltro);
             }
@@ -131,12 +131,12 @@ public class ProductoDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     
-                    // --- RECUPERACIÓN DE DATOS COMUNES (SUPERCLASE) ---
+                    
                     String sku = rs.getString("SKU");
                     String nombre = rs.getString("NOMBRE");
                     String edicion = rs.getString("EDICION");
                     String linea = rs.getString("LINEA");
-                    String tipoBd = rs.getString("TIPO"); // Importante para el switch
+                    String tipoBd = rs.getString("TIPO");
                     int stock = rs.getInt("STOCK");
                     int precio = rs.getInt("PRECIO");
                     String fecha = rs.getString("FECHA_SALIDA");
@@ -152,7 +152,7 @@ public class ProductoDAO {
                             
                             p = new CajaSobre(
                                 cantSobre, // Hijo
-                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion 
                             );
                             break;
 
