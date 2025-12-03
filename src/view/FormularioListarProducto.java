@@ -68,13 +68,13 @@ public class FormularioListarProducto extends javax.swing.JFrame {
 
         jtListar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Sku", "Nombre", "Edicion", "Precio", "Stock", "Tipo", "InfoEspecifica"
+                "Sku", "Nombre", "Precio", "Stock", "Tipo", "InfoEspecifica"
             }
         ));
         jScrollPane1.setViewportView(jtListar);
@@ -87,8 +87,8 @@ public class FormularioListarProducto extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(cmbListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -113,7 +113,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,13 +140,13 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         String filtroParaBD = null;
         switch (seleccionUsuario) {
             case "Cajas Sobres":
-                filtroParaBD = "Caja Sobres";
+                filtroParaBD = "SOBRE";
                 break;
             case "Cajas Mazos":
-                filtroParaBD = "Caja Mazos";
+                filtroParaBD = "MAZO";
                 break;
             case "Cajas Especiales":
-                filtroParaBD = "Caja Especial";
+                filtroParaBD = "ESPECIAL";
                 break;
             case "Todo":
                 filtroParaBD = null; // null hace que el DAO no ponga el WHERE

@@ -10,7 +10,7 @@ import java.util.List;
 public class ProductoDAO {
     
     public boolean insertar(Producto producto) {
-        boolean resultado = false;
+        
         
         if (producto instanceof CajaSobre) {
             return insertarCajaSobre((CajaSobre) producto);
@@ -19,9 +19,9 @@ public class ProductoDAO {
         } else if (producto instanceof CajaEspecial) {
             return insertarCajaEspecial((CajaEspecial) producto);
         }
-        
-        return false;
+        return false;     
     }
+    
     
     private boolean insertarCajaSobre(CajaSobre producto) {
         String query = "INSERT INTO PRODUCTO (SKU, NOMBRE, EDICION, LINEA, TIPO, STOCK, PRECIO, " +
@@ -115,7 +115,6 @@ public class ProductoDAO {
     public List<Producto> listar(String tipoFiltro) {
         List<Producto> lista = new ArrayList<>();
         String sql = "SELECT * FROM PRODUCTO";
-
        
         if (tipoFiltro != null && !tipoFiltro.isEmpty()) {
             sql += " WHERE TIPO = ?";
@@ -143,16 +142,15 @@ public class ProductoDAO {
                     String descripcion = rs.getString("DESCRIPCION");
 
                     Producto p = null;
-
-                  
-                    
+          
                     switch (tipoBd) { 
                         case "Caja Sobres": 
                             int cantSobre = rs.getInt("CANTIDAD_SOBRE");
                             
                             p = new CajaSobre(
                                 cantSobre, // Hijo
-                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion 
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+
                             );
                             break;
 
@@ -166,7 +164,7 @@ public class ProductoDAO {
                             );
                             break;
                             
-                        case "Caja Especial":
+                        case "Caja Especiales":
                             // En DB: CANTIDAD_SOBRE_ESPECIAL, CARTA_PROMO, REGALO_EXTRA
                             int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
                             String promo = rs.getString("CARTA_PROMO");
