@@ -346,7 +346,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioActionPerformed
     
-    private void accionCajaMazo() {
+      private void accionCajaMazo() {
         txtSKU.setEnabled(true);
         txtNombre.setEnabled(true);
         txtEdicion.setEnabled(true);
