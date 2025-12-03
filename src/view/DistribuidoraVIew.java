@@ -23,6 +23,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
      */
     public DistribuidoraVIew() {
         initComponents();
+        this.pack();
+        this.setLocationRelativeTo(null);
         limpiarCampos();
     }
     /**
@@ -85,9 +87,9 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
         lblDescripcion.setText("Descripción");
 
-        lblCantidadMazo.setText("Cantidad Sobre");
+        lblCantidadMazo.setText("Cantidad Mazos");
 
-        lblCantidadSobre.setText("Cantidad Mazos");
+        lblCantidadSobre.setText("Cantidad Sobre");
 
         lblRegaloExtra.setText("Regalo Extra");
 
@@ -170,8 +172,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                                         .addGap(108, 108, 108))
                                     .addComponent(lblCartaPromo, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(lblCantidadSobre)
-                                    .addGap(54, 54, 54)
+                                    .addGap(139, 139, 139)
                                     .addComponent(txtCantidadMazos, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lblCantidadSobreEspecial)
@@ -180,10 +181,12 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                                     .addComponent(txtCantidadSobresEspeciales)
                                     .addComponent(txtRegaloEspecial)
                                     .addComponent(txtCartaPromocional, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblCantidadMazo)
-                                .addGap(58, 58, 58)
-                                .addComponent(txtCantidadSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblCantidadMazo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblCantidadSobre)
+                                    .addGap(58, 58, 58)
+                                    .addComponent(txtCantidadSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
@@ -199,8 +202,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSKU)
                     .addComponent(txtSKU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCantidadSobre)
-                    .addComponent(txtCantidadMazos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantidadMazos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCantidadMazo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -221,7 +224,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                             .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCantidadMazo)
+                            .addComponent(lblCantidadSobre)
                             .addComponent(txtCantidadSobre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -366,6 +369,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     
       private void accionCajaMazo() {
+          //enable txt
         txtSKU.setEnabled(true);
         txtNombre.setEnabled(true);
         txtEdicion.setEnabled(true);
@@ -379,9 +383,32 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtCantidadSobresEspeciales.setEnabled(false);
         txtCartaPromocional.setEnabled(false);
         txtRegaloEspecial.setEnabled(false);
+        //visible txt
+        txtSKU.setVisible(true);
+        txtNombre.setVisible(true);
+        txtEdicion.setVisible(true);
+        txtLinea.setVisible(true);
+        txtStock.setVisible(true);
+        txtPrecio.setVisible(true);
+        txtFechaSalida.setVisible(true);
+        txtDescripcion.setVisible(true);
+        txtCantidadSobre.setVisible(true);
+        txtCantidadMazos.setVisible(true);
+        txtCantidadSobresEspeciales.setVisible(true);
+        txtCartaPromocional.setVisible(true);
+        txtRegaloEspecial.setVisible(true);
+        lblCantidadSobre.setVisible(true);
+        lblCantidadMazo.setVisible(true);
+        lblCantidadSobreEspecial.setVisible(true);
+        lblCartaPromo.setVisible(true);
+        lblRegaloExtra.setVisible(true);
+        this.pack(); 
+        this.setLocationRelativeTo(null);
+        
     }
     
     private void accionCajaSobre() {
+        //enable txt
         txtSKU.setEnabled(true);
         txtNombre.setEnabled(true);
         txtEdicion.setEnabled(true);
@@ -395,10 +422,33 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtCantidadSobresEspeciales.setEnabled(false);
         txtCartaPromocional.setEnabled(false);
         txtRegaloEspecial.setEnabled(false);
+        //visible txt
+        txtSKU.setVisible(true);
+        txtNombre.setVisible(true);
+        txtEdicion.setVisible(true);
+        txtLinea.setVisible(true);
+        txtStock.setVisible(true);
+        txtPrecio.setVisible(true);
+        txtFechaSalida.setVisible(true);
+        txtDescripcion.setVisible(true);
+        txtCantidadSobre.setVisible(true);
+        txtCantidadMazos.setVisible(true);
+        txtCantidadSobresEspeciales.setVisible(true);
+        txtCartaPromocional.setVisible(true);
+        txtRegaloEspecial.setVisible(true);
+        lblCantidadSobre.setVisible(true);
+        lblCantidadMazo.setVisible(true);
+        lblCantidadSobreEspecial.setVisible(true);
+        lblCartaPromo.setVisible(true);
+        lblRegaloExtra.setVisible(true);
+        this.pack(); 
+        this.setLocationRelativeTo(null);
+        
     }
     
     private void accionCajaEspecial() {
-                txtSKU.setEnabled(true);
+        //enable txt
+        txtSKU.setEnabled(true);
         txtNombre.setEnabled(true);
         txtEdicion.setEnabled(true);
         txtLinea.setEnabled(true);
@@ -411,6 +461,27 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtCantidadSobresEspeciales.setEnabled(true);
         txtCartaPromocional.setEnabled(true);
         txtRegaloEspecial.setEnabled(true);
+        //visible txt
+        txtSKU.setVisible(true);
+        txtNombre.setVisible(true);
+        txtEdicion.setVisible(true);
+        txtLinea.setVisible(true);
+        txtStock.setVisible(true);
+        txtPrecio.setVisible(true);
+        txtFechaSalida.setVisible(true);
+        txtDescripcion.setVisible(true);
+        txtCantidadSobre.setVisible(true);
+        txtCantidadMazos.setVisible(true);
+        txtCantidadSobresEspeciales.setVisible(true);
+        txtCartaPromocional.setVisible(true);
+        txtRegaloEspecial.setVisible(true);
+        lblCantidadSobre.setVisible(true);
+        lblCantidadMazo.setVisible(true);
+        lblCantidadSobreEspecial.setVisible(true);
+        lblCartaPromo.setVisible(true);
+        lblRegaloExtra.setVisible(true);
+        this.pack(); 
+        this.setLocationRelativeTo(null);
 
     }
     
