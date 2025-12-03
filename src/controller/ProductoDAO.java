@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 import model.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author maxan
@@ -113,6 +111,89 @@ public class ProductoDAO {
         }
         return false;
     }
+    
+    public List<Producto> listar(String tipoFiltro) {
+        List<Producto> lista = new ArrayList<>();
+        String sql = "SELECT * FROM PRODUCTO";
+
+        // 1. Lógica dinámica: Si me diste un tipo, agrego el WHERE
+        if (tipoFiltro != null && !tipoFiltro.isEmpty()) {
+            sql += " WHERE TIPO = ?";
+        }
+
+        try (PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(sql)) {
+            
+            // 2. Si agregué el WHERE, asigno el parámetro
+            if (tipoFiltro != null && !tipoFiltro.isEmpty()) {
+                ps.setString(1, tipoFiltro);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    
+                    // --- RECUPERACIÓN DE DATOS COMUNES (SUPERCLASE) ---
+                    String sku = rs.getString("SKU");
+                    String nombre = rs.getString("NOMBRE");
+                    String edicion = rs.getString("EDICION");
+                    String linea = rs.getString("LINEA");
+                    String tipoBd = rs.getString("TIPO"); // Importante para el switch
+                    int stock = rs.getInt("STOCK");
+                    int precio = rs.getInt("PRECIO");
+                    String fecha = rs.getString("FECHA_SALIDA");
+                    String descripcion = rs.getString("DESCRIPCION");
+
+                    Producto p = null;
+
+                  
+                    
+                    switch (tipoBd) { 
+                        case "SOBRE": 
+                            int cantSobre = rs.getInt("CANTIDAD_SOBRE");
+                            
+                            p = new CajaSobre(
+                                cantSobre, // Hijo
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+                            );
+                            break;
+
+                        case "MAZO":
+                            // Asumo que tu clase CajaMazo es igual a CajaSobre pero con CANTIDAD_MAZO
+                            int cantMazo = rs.getInt("CANTIDAD_MAZO");
+                            
+                            p = new CajaMazo(
+                                cantMazo, // Hijo
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+                            );
+                            break;
+                            
+                        case "ESPECIAL":
+                            // En DB: CANTIDAD_SOBRE_ESPECIAL, CARTA_PROMO, REGALO_EXTRA
+                            int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
+                            String promo = rs.getString("CARTA_PROMO");
+                            String regalo = rs.getString("REGALO_EXTRA");
+
+                            p = new CajaEspecial(
+                                cantEsp, promo, regalo, // Hijo (Orden específico de tu constructor)
+                                edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion // Padre
+                            );
+                            break;
+                            
+                        default:
+                             // Opción por si hay datos basura o nuevos tipos no implementados
+                             System.out.println("Tipo no reconocido: " + tipoBd);
+                             break;
+                    }
+
+                    if (p != null) {
+                        lista.add(p);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar: " + e.getMessage());
+        }
+        return lista;
+    }    
     
     
 }
