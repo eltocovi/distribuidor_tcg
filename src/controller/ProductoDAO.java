@@ -10,7 +10,7 @@ import java.util.List;
 public class ProductoDAO {
     
     public boolean insertar(Producto producto) {
-        boolean resultado = false;
+        
         
         if (producto instanceof CajaSobre) {
             return insertarCajaSobre((CajaSobre) producto);
@@ -19,9 +19,9 @@ public class ProductoDAO {
         } else if (producto instanceof CajaEspecial) {
             return insertarCajaEspecial((CajaEspecial) producto);
         }
-        
-        return false;
+        return false;     
     }
+    
     
     private boolean insertarCajaSobre(CajaSobre producto) {
         String query = "INSERT INTO PRODUCTO (SKU, NOMBRE, EDICION, LINEA, TIPO, STOCK, PRECIO, " +
