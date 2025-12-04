@@ -163,7 +163,7 @@ public class ProductoDAO {
                             );
                             break;
                             
-                        case "Caja Especiales":
+                        case "Caja Especial":
                             int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
                             String promo = rs.getString("CARTA_PROMO");
                             String regalo = rs.getString("REGALO_EXTRA");
@@ -240,7 +240,7 @@ public class ProductoDAO {
                         p = new CajaMazo(cantMazo, edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion);
                         break;
                         
-                    case "Caja Especiales":
+                    case "Caja Especial":
                         int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
                         String promo = rs.getString("CARTA_PROMO");
                         String regalo = rs.getString("REGALO_EXTRA");
