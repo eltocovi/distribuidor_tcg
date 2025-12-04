@@ -100,6 +100,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
         txtSKU.addActionListener(this::txtSKUActionPerformed);
 
+        txtNombre.addActionListener(this::txtNombreActionPerformed);
+
         txtPrecio.addActionListener(this::txtPrecioActionPerformed);
 
         txtDescripcion.addActionListener(this::txtDescripcionActionPerformed);
@@ -397,6 +399,11 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         
                
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtNombreActionPerformed
     
       private void accionCajaMazo() {
           //enable txt
