@@ -203,7 +203,6 @@ public class ProductoDAO {
             resultado = true;
         }catch(Exception ex) {
             ex.printStackTrace();
-        
         }
         
         return resultado;

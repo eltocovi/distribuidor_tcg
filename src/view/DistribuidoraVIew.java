@@ -376,23 +376,26 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-       try {
-           String sku = txtSKU.getText().trim();
-           if (sku != null) {
-               ProductoDAO dao = new ProductoDAO();
+      String sku = txtSKU.getText();
+        //Data Access Object
+        ProductoDAO dao = new ProductoDAO();
+        boolean resultado = dao.eliminarProducto(sku); 
+        System.out.println("borrar -> " + resultado);   
+        
+        if (sku.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Debe llenar campo"); 
+        }else{
+            if(resultado){
+            
+            JOptionPane.showMessageDialog(rootPane, "Producto eliminado");            
+            limpiarCampos();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Producto no se elimino");                        
+        }
+        
+        } 
+        
                
-               if (dao.eliminarProducto(sku)){
-                    JOptionPane.showMessageDialog(this, "¡Producto borrado con éxito!");
-                    limpiarCampos();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Hubo un error al guardar en la Base de Datos. Revisa la consola.");
-                }
-           
-           }
-       } catch (Exception e) {
-           System.out.println("No se encuentra producto");
-       
-       }
     }//GEN-LAST:event_btnBorrarActionPerformed
     
       private void accionCajaMazo() {
