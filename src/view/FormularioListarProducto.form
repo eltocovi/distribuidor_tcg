@@ -42,7 +42,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -50,7 +50,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="106" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -64,17 +64,20 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="781" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane1" min="-2" pref="1157" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="cmbListar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="btnListar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="lblBuscarSkuListar" min="-2" pref="109" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtBuscarSkuListar" min="-2" pref="155" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnBuscarListar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -84,10 +87,13 @@
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cmbListar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnListar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtBuscarSkuListar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblBuscarSkuListar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscarListar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="534" max="32767" attributes="0"/>
+                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="587" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -101,7 +107,7 @@
                 <StringItem index="0" value="Todo"/>
                 <StringItem index="1" value="Cajas Sobres"/>
                 <StringItem index="2" value="Cajas Mazos"/>
-                <StringItem index="3" value="Cajas Especiales"/>
+                <StringItem index="3" value="Cajas Especial"/>
               </StringArray>
             </Property>
           </Properties>
@@ -112,12 +118,12 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="btnBuscarListar">
+        <Component class="javax.swing.JButton" name="btnListar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar"/>
+            <Property name="text" type="java.lang.String" value="Listar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarListarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -144,6 +150,24 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JTextField" name="txtBuscarSkuListar">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarSkuListarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblBuscarSkuListar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar por Sku"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnBuscarListar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarListarActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

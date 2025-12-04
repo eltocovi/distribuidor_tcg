@@ -163,7 +163,7 @@ public class ProductoDAO {
                             );
                             break;
                             
-                        case "Caja Especiales":
+                        case "Caja Especial":
                             int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
                             String promo = rs.getString("CARTA_PROMO");
                             String regalo = rs.getString("REGALO_EXTRA");
@@ -188,7 +188,70 @@ public class ProductoDAO {
             System.out.println("Error al listar: " + e.getMessage());
         }
         return lista;
-    }    
+    } 
     
+    public boolean eliminarProducto (String SKU) {
+        boolean resultado = false;
+        
+        String query = "DELETE FROM PRODUCTO WHERE SKU = ?";
+        
+        try {
+            PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
+            int i = 1;
+            ps.setString(i++, SKU);            
+            ps.execute();
+            resultado = true;
+        }catch(Exception ex) {
+            ex.printStackTrace();
+        
+        }
+        
+        return resultado;
+    }
     
+    public Producto buscarPorSku(String skuBuscado) {
+    Producto p = null;
+    String sql = "SELECT * FROM PRODUCTO WHERE SKU = ?";
+
+    try (PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(sql)) {
+        ps.setString(1, skuBuscado);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) { 
+                
+                String sku = rs.getString("SKU");
+                String nombre = rs.getString("NOMBRE");
+                String edicion = rs.getString("EDICION");
+                String linea = rs.getString("LINEA");
+                String tipoBd = rs.getString("TIPO");
+                int stock = rs.getInt("STOCK");
+                int precio = rs.getInt("PRECIO");
+                String fecha = rs.getString("FECHA_SALIDA");
+                String descripcion = rs.getString("DESCRIPCION");
+
+                switch (tipoBd) { 
+                    case "Caja Sobres": 
+                        int cantSobre = rs.getInt("CANTIDAD_SOBRE");
+                        p = new CajaSobre(cantSobre, edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion);
+                        break;
+
+                    case "Caja Mazos":
+                        int cantMazo = rs.getInt("CANTIDAD_MAZO");
+                        p = new CajaMazo(cantMazo, edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion);
+                        break;
+                        
+                    case "Caja Especial":
+                        int cantEsp = rs.getInt("CANTIDAD_SOBRE_ESPECIAL");
+                        String promo = rs.getString("CARTA_PROMO");
+                        String regalo = rs.getString("REGALO_EXTRA");
+                        p = new CajaEspecial(cantEsp, promo, regalo, edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion);
+                        break;
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al buscar por SKU: " + e.getMessage());
+    }
+    return p;
+}
 }
