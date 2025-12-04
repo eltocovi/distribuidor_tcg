@@ -19,6 +19,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
      */
     public FormularioListarProducto() {
         initComponents();
+        this.setLocationRelativeTo(null);
         ProductoDAO dao = new ProductoDAO();
         
     }
@@ -35,9 +36,12 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         cmbListar = new javax.swing.JComboBox<>();
-        btnBuscarListar = new javax.swing.JButton();
+        btnListar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListar = new javax.swing.JTable();
+        txtBuscarSkuListar = new javax.swing.JTextField();
+        lblBuscarSkuListar = new javax.swing.JLabel();
+        btnBuscarListar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -59,10 +63,10 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             }
         });
 
-        btnBuscarListar.setText("Buscar");
-        btnBuscarListar.addActionListener(new java.awt.event.ActionListener() {
+        btnListar.setText("Listar");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarListarActionPerformed(evt);
+                btnListarActionPerformed(evt);
             }
         });
 
@@ -76,6 +80,21 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtListar);
 
+        txtBuscarSkuListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarSkuListarActionPerformed(evt);
+            }
+        });
+
+        lblBuscarSkuListar.setText("Buscar por Sku");
+
+        btnBuscarListar.setText("Buscar");
+        btnBuscarListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarListarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -83,14 +102,18 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(cmbListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscarListar)
-                        .addGap(71, 71, 71))))
+                        .addGap(46, 46, 46)
+                        .addComponent(btnListar)
+                        .addGap(91, 91, 91)
+                        .addComponent(lblBuscarSkuListar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarSkuListar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscarListar)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,6 +121,9 @@ public class FormularioListarProducto extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListar)
+                    .addComponent(txtBuscarSkuListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBuscarSkuListar)
                     .addComponent(btnBuscarListar))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
@@ -110,7 +136,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +152,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbListarActionPerformed
 
-    private void btnBuscarListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarListarActionPerformed
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         ProductoDAO dao = new ProductoDAO();
         
         DefaultTableModel modelo = (DefaultTableModel) jtListar.getModel();
@@ -142,7 +168,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             case "Cajas Mazos":
                 filtroParaBD = "Caja Mazos";
                 break;
-            case "Cajas Especiales":
+            case "Cajas Especial":
                 filtroParaBD = "Caja Especiales";
                 break;
             case "Todo":
@@ -185,6 +211,62 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         modelo.addRow(fila);
     }
 
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void txtBuscarSkuListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarSkuListarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarSkuListarActionPerformed
+
+    private void btnBuscarListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarListarActionPerformed
+        // TODO add your handling code here:
+        String skuBuscado = txtBuscarSkuListar.getText().trim();
+
+    if (skuBuscado.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor escribe el SKU que deseas buscar.");
+        return;
+    }
+
+    ProductoDAO dao = new ProductoDAO();
+    
+    Producto p = dao.buscarPorSku(skuBuscado);
+
+    if (p == null) {
+        javax.swing.JOptionPane.showMessageDialog(this, "No se encontró ningún producto con el SKU: " + skuBuscado);
+        ((DefaultTableModel) jtListar.getModel()).setRowCount(0);
+    } else {
+        DefaultTableModel modelo = (DefaultTableModel) jtListar.getModel();
+        modelo.setRowCount(0);
+
+        String infoEspecifica = "";
+        
+        if (p instanceof CajaSobre) {
+            CajaSobre cs = (CajaSobre) p;
+            infoEspecifica = "Sobres/Caja: " + cs.getCantidadPorCaja();
+            
+        } else if (p instanceof CajaMazo) {
+            CajaMazo cm = (CajaMazo) p;
+            infoEspecifica = "Mazos/Caja: " + cm.getCantidadPorCaja(); 
+            
+        } else if (p instanceof CajaEspecial) {
+            CajaEspecial ce = (CajaEspecial) p;
+            infoEspecifica = String.format("Sobres: %d | Promo: %s | Regalo: %s", 
+                                           ce.getCantidadSobres(), 
+                                           ce.getCartasPromo(), 
+                                           ce.getRegaloExtra());
+        }
+
+        Object[] fila = new Object[] {
+            p.getSku(),
+            p.getNombre(),
+            p.getEdicion(), 
+            p.getPrecio(),
+            p.getStock(),
+            p.getTipo(),    
+            infoEspecifica 
+        };
+        
+        modelo.addRow(fila);
+    }
     }//GEN-LAST:event_btnBuscarListarActionPerformed
 
     /**
@@ -214,10 +296,13 @@ public class FormularioListarProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarListar;
+    private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> cmbListar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtListar;
+    private javax.swing.JLabel lblBuscarSkuListar;
+    private javax.swing.JTextField txtBuscarSkuListar;
     // End of variables declaration//GEN-END:variables
 }

@@ -109,7 +109,6 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
-        cmbTipo.setEditable(true);
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Opción", "Caja Mazos", "Caja Sobres", "Caja Especial", " " }));
         cmbTipo.addActionListener(this::cmbTipoActionPerformed);
 
@@ -288,9 +287,9 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             int precio = Integer.parseInt(txtPrecio.getText().trim());
             String fechaSalida = txtFechaSalida.getText().trim();
             String descripcion = txtDescripcion.getText().trim();
-            int cantidadSobre = Integer.parseInt(txtCantidadSobre.getText().trim());
-            int cantidadMazo = Integer.parseInt(txtCantidadMazos.getText().trim());
-            int cantidadSobreEspecial = Integer.parseInt(txtCantidadSobresEspeciales.getText().trim());
+            int cantidadSobre = txtCantidadSobre.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtCantidadSobre.getText().trim());
+            int cantidadMazo = txtCantidadMazos.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtCantidadMazos.getText().trim());
+            int cantidadSobreEspecial = txtCantidadSobresEspeciales.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtCantidadSobresEspeciales.getText().trim());
             String cartaPromo = txtCartaPromocional.getText().trim();
             String regaloExtra = txtRegaloEspecial.getText().trim();
 
