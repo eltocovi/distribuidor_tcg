@@ -16,7 +16,7 @@ import java.util.logging.Level;
  */
 public class DistribuidoraVIew extends javax.swing.JFrame {
     
-    private Producto producto;  // ← Cambio: Instancia del modelo, no del DAO
+    private Producto producto; 
     
     /**
      * Creates new form DistribuidoraVIew
@@ -66,6 +66,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         cmbTipo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +115,9 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
         jButton1.setText("Listar");
         jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(this::btnBorrarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,19 +178,21 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGap(139, 139, 139)
                                     .addComponent(txtCantidadMazos, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblCantidadSobreEspecial)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCantidadSobresEspeciales)
-                                    .addComponent(txtRegaloEspecial)
-                                    .addComponent(txtCartaPromocional, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lblCantidadMazo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblCantidadSobre)
                                     .addGap(58, 58, 58)
-                                    .addComponent(txtCantidadSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(txtCantidadSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnBorrar)
+                                    .addComponent(lblCantidadSobreEspecial))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCantidadSobresEspeciales)
+                                    .addComponent(txtRegaloEspecial)
+                                    .addComponent(txtCartaPromocional, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
@@ -249,7 +255,9 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                             .addComponent(lblFechaSalida)
                             .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51)
-                        .addComponent(btnGuardar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnBorrar))
                         .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -367,6 +375,26 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         FormularioListarProducto formListarProducto = new FormularioListarProducto();
         formListarProducto.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+       try {
+           String sku = txtSKU.getText().trim();
+           if (sku != null) {
+               ProductoDAO dao = new ProductoDAO();
+               
+               if (dao.eliminarProducto(sku)){
+                    JOptionPane.showMessageDialog(this, "¡Producto borrado con éxito!");
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Hubo un error al guardar en la Base de Datos. Revisa la consola.");
+                }
+           
+           }
+       } catch (Exception e) {
+           System.out.println("No se encuentra producto");
+       
+       }
+    }//GEN-LAST:event_btnBorrarActionPerformed
     
       private void accionCajaMazo() {
           //enable txt
@@ -512,6 +540,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JButton jButton1;

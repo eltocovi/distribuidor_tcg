@@ -188,7 +188,26 @@ public class ProductoDAO {
             System.out.println("Error al listar: " + e.getMessage());
         }
         return lista;
-    }    
+    } 
+    
+    public boolean eliminarProducto (String SKU) {
+        boolean resultado = false;
+        
+        String query = "DELETE FROM PRODUCTO WHERE SKU = ?";
+        
+        try {
+            PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
+            int i = 1;
+            ps.setString(i++, SKU);            
+            ps.execute();
+            resultado = true;
+        }catch(Exception ex) {
+            ex.printStackTrace();
+        
+        }
+        
+        return resultado;
+    }
     
     
 }
