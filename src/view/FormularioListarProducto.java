@@ -21,6 +21,13 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         ProductoDAO dao = new ProductoDAO();
+        jtListar.getColumnModel().getColumn(0).setPreferredWidth(80); 
+        jtListar.getColumnModel().getColumn(1).setPreferredWidth(150); 
+        jtListar.getColumnModel().getColumn(2).setPreferredWidth(120); 
+        jtListar.getColumnModel().getColumn(3).setPreferredWidth(70); 
+        jtListar.getColumnModel().getColumn(4).setPreferredWidth(50); 
+        jtListar.getColumnModel().getColumn(5).setPreferredWidth(100); 
+        jtListar.getColumnModel().getColumn(6).setPreferredWidth(300);
         
     }
 
@@ -40,8 +47,8 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListar = new javax.swing.JTable();
         txtBuscarSkuListar = new javax.swing.JTextField();
-        lblBuscarSkuListar = new javax.swing.JLabel();
         btnBuscarListar = new javax.swing.JButton();
+        cmbBuscarPor = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,12 +93,17 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             }
         });
 
-        lblBuscarSkuListar.setText("Buscar por Sku");
-
         btnBuscarListar.setText("Buscar");
         btnBuscarListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarListarActionPerformed(evt);
+            }
+        });
+
+        cmbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar por SKU", "Buscar por Nombre" }));
+        cmbBuscarPor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBuscarPorActionPerformed(evt);
             }
         });
 
@@ -107,11 +119,11 @@ public class FormularioListarProducto extends javax.swing.JFrame {
                         .addComponent(cmbListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
                         .addComponent(btnListar)
-                        .addGap(91, 91, 91)
-                        .addComponent(lblBuscarSkuListar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(41, 41, 41)
+                        .addComponent(cmbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtBuscarSkuListar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscarListar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -123,8 +135,8 @@ public class FormularioListarProducto extends javax.swing.JFrame {
                     .addComponent(cmbListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnListar)
                     .addComponent(txtBuscarSkuListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBuscarSkuListar)
-                    .addComponent(btnBuscarListar))
+                    .addComponent(btnBuscarListar)
+                    .addComponent(cmbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -219,6 +231,8 @@ public class FormularioListarProducto extends javax.swing.JFrame {
 
     private void btnBuscarListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarListarActionPerformed
         // TODO add your handling code here:
+    String buscarUsuario = cmbBuscarPor.getSelectedItem().toString();    
+    if (buscarUsuario.equals("Buscar por SKU")){
         String skuBuscado = txtBuscarSkuListar.getText().trim();
 
     if (skuBuscado.isEmpty()) {
@@ -267,7 +281,64 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         
         modelo.addRow(fila);
     }
+    } else if (buscarUsuario.equals("Buscar por Nombre")) {
+    String nombreBuscado = txtBuscarSkuListar.getText().trim();
+
+    if (nombreBuscado.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Por favor escribe el Nombre que deseas buscar.");
+        return;
+    }
+
+    ProductoDAO dao = new ProductoDAO();
+    
+    List<Producto> listaResultados = dao.buscarPorNombre(nombreBuscado);
+
+    if (listaResultados.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "No se encontró ningún producto con el Nombre: " + nombreBuscado);
+        ((DefaultTableModel) jtListar.getModel()).setRowCount(0);
+    } else {
+        DefaultTableModel modelo = (DefaultTableModel) jtListar.getModel();
+        modelo.setRowCount(0);
+        
+        for (Producto prodIterado : listaResultados) { 
+            
+            String infoEspecifica = "";
+            
+            // Usamos 'prodIterado' en los instanceof
+            if (prodIterado instanceof CajaSobre) {
+                infoEspecifica = "Sobres/Caja: " + ((CajaSobre) prodIterado).getCantidadPorCaja();
+                
+            } else if (prodIterado instanceof CajaMazo) {
+                infoEspecifica = "Mazos/Caja: " + ((CajaMazo) prodIterado).getCantidadPorCaja(); 
+                
+            } else if (prodIterado instanceof CajaEspecial) {
+                CajaEspecial ce = (CajaEspecial) prodIterado;
+                infoEspecifica = String.format("Sobres: %d | Promo: %s | Regalo: %s", 
+                                               ce.getCantidadSobres(), 
+                                               ce.getCartasPromo(), 
+                                               ce.getRegaloExtra());
+            }
+
+            Object[] fila = new Object[] {
+                prodIterado.getSku(),     
+                prodIterado.getNombre(),   
+                prodIterado.getEdicion(),  
+                prodIterado.getPrecio(),
+                prodIterado.getStock(),
+                prodIterado.getTipo(),     
+                infoEspecifica 
+            };
+            
+            modelo.addRow(fila);
+        }
+    }
+
+    }
     }//GEN-LAST:event_btnBuscarListarActionPerformed
+
+    private void cmbBuscarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBuscarPorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBuscarPorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,12 +368,12 @@ public class FormularioListarProducto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarListar;
     private javax.swing.JButton btnListar;
+    private javax.swing.JComboBox<String> cmbBuscarPor;
     private javax.swing.JComboBox<String> cmbListar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtListar;
-    private javax.swing.JLabel lblBuscarSkuListar;
     private javax.swing.JTextField txtBuscarSkuListar;
     // End of variables declaration//GEN-END:variables
 }
