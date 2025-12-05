@@ -199,15 +199,128 @@ public class ProductoDAO {
             PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
             int i = 1;
             ps.setString(i++, SKU);            
-            ps.execute();
+            int filasBorradas = ps.executeUpdate();
+            if (filasBorradas > 0) {
             resultado = true;
+        }
         }catch(Exception ex) {
             ex.printStackTrace();
-        
         }
         
         return resultado;
     }
+    
+    public boolean actualizarProducto (Producto producto) {
+        
+        if (producto instanceof CajaSobre) {
+            return actualizarCajaSobre((CajaSobre) producto);
+        } else if (producto instanceof CajaMazo) {
+            return actualizarCajaMazo((CajaMazo) producto);
+        } else if (producto instanceof CajaEspecial) {
+            return actualizarCajaEspecial((CajaEspecial) producto);
+        }
+        return false;    
+    
+    }
+    
+   public boolean actualizarCajaSobre(CajaSobre producto) {
+    boolean resultado = false;
+    // ✅ Agregada coma después de LINEA = ?
+    String query = "UPDATE PRODUCTO SET NOMBRE = ?, EDICION = ?, LINEA = ?, " + 
+            "STOCK = ?, PRECIO = ?, FECHA_SALIDA = ?, DESCRIPCION = ?, CANTIDAD_SOBRE = ? " + 
+            "WHERE SKU = ?";
+    
+    try {
+        PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
+        int i = 1;
+        ps.setString(i++, producto.getNombre());
+        ps.setString(i++, producto.getEdicion());
+        ps.setString(i++, producto.getLinea());
+        ps.setInt(i++, producto.getStock());
+        ps.setInt(i++, producto.getPrecio());
+        ps.setString(i++, producto.getFechaSalida());
+        ps.setString(i++, producto.getDescripcion());
+        ps.setInt(i++, producto.getCantidadPorCaja());
+        ps.setString(i++, producto.getSku());
+        
+        ps.execute(); // ✅ También funciona executeUpdate()
+        resultado = true;
+        
+        System.out.println("CajaSobre actualizada correctamente");
+    } catch (Exception ex) {
+        System.out.println("Error en actualizarCajaSobre: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+    
+    return resultado;
+}
+
+public boolean actualizarCajaMazo(CajaMazo producto) {
+    boolean resultado = false;
+    // ✅ Agregada coma después de LINEA = ?
+    String query = "UPDATE PRODUCTO SET NOMBRE = ?, EDICION = ?, LINEA = ?, " + 
+            "STOCK = ?, PRECIO = ?, FECHA_SALIDA = ?, DESCRIPCION = ?, " +
+            "CANTIDAD_MAZO = ? " + "WHERE SKU = ?";
+    
+    try {
+        PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
+        int i = 1;
+        ps.setString(i++, producto.getNombre());
+        ps.setString(i++, producto.getEdicion());
+        ps.setString(i++, producto.getLinea());
+        ps.setInt(i++, producto.getStock());
+        ps.setInt(i++, producto.getPrecio());
+        ps.setString(i++, producto.getFechaSalida());
+        ps.setString(i++, producto.getDescripcion());
+        ps.setInt(i++, producto.getCantidadPorCaja());
+        ps.setString(i++, producto.getSku());
+        
+        ps.execute();
+        resultado = true;
+        
+        System.out.println("CajaMazo actualizada correctamente");
+    } catch (Exception ex) {
+        System.out.println("Error en actualizarCajaMazo: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+    
+    return resultado;
+}
+
+public boolean actualizarCajaEspecial(CajaEspecial producto) {
+    boolean resultado = false;
+    // ✅ Agregada coma después de LINEA = ? y después de DESCRIPCION = ?
+    String query = "UPDATE PRODUCTO SET NOMBRE = ?, EDICION = ?, LINEA = ?, " + 
+            "STOCK = ?, PRECIO = ?, FECHA_SALIDA = ?, DESCRIPCION = ?, " +
+            "CANTIDAD_SOBRE_ESPECIAL = ?, CARTA_PROMO = ?, REGALO_EXTRA = ? " + 
+            "WHERE SKU = ?";
+    
+    try {
+        PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(query);
+        int i = 1;
+        ps.setString(i++, producto.getNombre());
+        ps.setString(i++, producto.getEdicion());
+        ps.setString(i++, producto.getLinea());
+        ps.setInt(i++, producto.getStock());
+        ps.setInt(i++, producto.getPrecio());
+        ps.setString(i++, producto.getFechaSalida());
+        ps.setString(i++, producto.getDescripcion());
+        ps.setInt(i++, producto.getCantidadSobres());
+        ps.setString(i++, producto.getCartasPromo());
+        ps.setString(i++, producto.getRegaloExtra());
+        ps.setString(i++, producto.getSku());
+        
+        ps.execute();
+        resultado = true;
+        
+        System.out.println("CajaEspecial actualizada correctamente");
+    } catch (Exception ex) {
+        System.out.println("Error en actualizarCajaEspecial: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+    
+    return resultado;
+}
     
     public Producto buscarPorSku(String skuBuscado) {
     Producto p = null;
