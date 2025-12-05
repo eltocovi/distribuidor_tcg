@@ -105,7 +105,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
         lblPrecio.setText("Precio");
         getContentPane().add(lblPrecio);
-        lblPrecio.setBounds(60, 400, 33, 16);
+        lblPrecio.setBounds(50, 390, 60, 30);
 
         lblFechaSalida.setText("Fecha Salida");
         getContentPane().add(lblFechaSalida);
@@ -162,6 +162,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtCantidadSobre.setBounds(470, 270, 162, 22);
         getContentPane().add(txtCantidadMazos);
         txtCantidadMazos.setBounds(470, 230, 162, 20);
+
+        txtCantidadSobresEspeciales.addActionListener(this::txtCantidadSobresEspecialesActionPerformed);
         getContentPane().add(txtCantidadSobresEspeciales);
         txtCantidadSobresEspeciales.setBounds(470, 330, 162, 22);
 
@@ -294,7 +296,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             boolean isPrecioValido = false;
             try {
                 ValidadorGeneral.validarTamanioTexto(txtPrecio.getText(), 0, 8, "PRECIO");
-                ValidadorGeneral.validarTextoVacio(txtStock.getText(), "PRECIO");
+                ValidadorGeneral.validarTextoVacio(txtPrecio.getText(), "PRECIO");
                 ValidadorGeneral.validarEnteroPositivo(txtPrecio.getText(), "PRECIO");
                 producto.setPrecio(Integer.parseInt(txtPrecio.getText()));
                 isPrecioValido = true;
@@ -303,6 +305,12 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             }
 
             boolean isFechaSalidaValido = false;
+            String fechaTxt = txtFechaSalida.getText().trim();
+            
+            if (fechaTxt.isEmpty()) {
+                producto.setFechaSalida(null); 
+                isFechaSalidaValido = true;
+            } else {
             try {
                 java.util.Date fechaCl = FechaUtil.textoADate(txtFechaSalida.getText(), FechaUtil.DD_MM_YYYY);
                 String fechaSQL = FechaUtil.DateATexto(fechaCl, "yyyy-MM-dd");
@@ -312,6 +320,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error en Fecha: Use el formato " + FechaUtil.DD_MM_YYYY + " (ej: 25-12-2023)");
             } catch (Exception Ex){
                 JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
             }
 
             boolean isDescripcionValido = false;
@@ -379,7 +388,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
                 try {
                     ValidadorGeneral.validarTamanioTexto(txtRegaloEspecial.getText(), 0, 80, "REGALO_EXTRA");
-                    ValidadorGeneral.validarTextoVacio(txtCartaPromocional.getText(), "CARTA_PROMO");
+                    ValidadorGeneral.validarTextoVacio(txtRegaloEspecial.getText(), "CARTA_PROMO");
                     ((CajaEspecial) producto).setRegaloExtra(txtRegaloEspecial.getText());
                     isRegaloExtraValido = true;
                 } catch (Exception Ex) {
@@ -476,6 +485,11 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         }
         
         boolean isFechaSalidaValido = false;
+        String fechaTxt = txtFechaSalida.getText().trim();   
+        if (fechaTxt.isEmpty()) {
+                producto.setFechaSalida(null); 
+                isFechaSalidaValido = true;
+        }else {
         try {
                 java.util.Date fechaCl = FechaUtil.textoADate(txtFechaSalida.getText(), FechaUtil.DD_MM_YYYY);
                 String fechaSQL = FechaUtil.DateATexto(fechaCl, "yyyy-MM-dd");
@@ -486,6 +500,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             } catch (Exception Ex){
                 JOptionPane.showMessageDialog(this, Ex.getMessage());
             }
+        }
         
         boolean isDescripcionValido = false;
         try {
@@ -530,7 +545,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         else if (producto instanceof CajaEspecial) {
             try {
                 ValidadorGeneral.validarNumeroEntero(txtCantidadSobresEspeciales.getText(), "CANTIDAD_SOBRE_ESPECIAL");
-                ValidadorGeneral.validarTamanioTexto(txtCantidadSobre.getText(), 0, 4, "CANTIDAD_SOBRE");
+                ValidadorGeneral.validarTamanioTexto(txtCantidadSobresEspeciales.getText(), 0, 4, "CANTIDAD_SOBRE");
                 ((CajaEspecial) producto).setCantidadSobres(Integer.parseInt(txtCantidadSobresEspeciales.getText()));
                 isCantidadSobreEspecialValido = true;
             } catch (Exception Ex) {
@@ -625,25 +640,29 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        String sku = txtSKU.getText();
-        ProductoDAO dao = new ProductoDAO();
-        boolean resultado = dao.eliminarProducto(sku); 
-        System.out.println("borrar -> " + resultado);   
+        String sku = txtSKU.getText().trim();
+
+    if (sku.isEmpty()) {
+        JOptionPane.showMessageDialog(rootPane, "Debe ingresar un SKU para borrar.");
+        return;
+    }
+    int confirm = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar el producto " + sku + "?");
+    if (confirm != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    ProductoDAO dao = new ProductoDAO();
+    boolean resultado = dao.eliminarProducto(sku); 
+    
+    if(resultado){
+        JOptionPane.showMessageDialog(rootPane, "Producto eliminado");            
+        limpiarCampos();
+        this.producto = null; 
+    } else {
+        JOptionPane.showMessageDialog(rootPane, "El producto no se pudo eliminar (o no existe)");                        
+    }
         
-        if (sku.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Debe llenar campo"); 
-        }else{
-            if(resultado){
-            
-            JOptionPane.showMessageDialog(rootPane, "Producto eliminado");            
-            limpiarCampos();
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Producto no se elimino");                        
-        }
-        
-        } 
-        
-               
+              
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -675,7 +694,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         } 
         else if ("Borrar Productos".equals(opcion)) {
             mostrarElementosGenerales();
-            btnLupa.setVisible(false); 
+            btnLupa.setVisible(true); 
             btnGuardar.setVisible(false);
             btnBorrar.setVisible(true);
         }
@@ -758,6 +777,10 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             
 
     }//GEN-LAST:event_btnLupaActionPerformed
+
+    private void txtCantidadSobresEspecialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadSobresEspecialesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadSobresEspecialesActionPerformed
     
       private void accionCajaMazo() {
         mostrarElementosGenerales();
