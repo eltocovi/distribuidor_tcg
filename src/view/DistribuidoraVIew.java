@@ -10,7 +10,7 @@ import model.*;
 import javax.swing.JOptionPane;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import validator.ValidadorGeneral;
+import validator.*;
 /**
  *
  * @author maxan
@@ -129,7 +129,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
         jLabel1.setText("Seleccione opción:");
 
-        btnLupa.setText("lupita");
+        btnLupa.setText("🔍");
         btnLupa.addActionListener(this::btnLupaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,7 +168,6 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
                                                 .addContainerGap()
                                                 .addComponent(lblFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(20, 20, 20)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtEdicion)
@@ -301,69 +300,208 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
-          if ("Agregar Productos".equals(cmbOpcion.getSelectedItem())) {
-        try {
-            String sku = txtSKU.getText().trim();
-            String nombre = txtNombre.getText().trim();
-            String edicion = txtEdicion.getText().trim();
-            String linea = txtLinea.getText().trim();
-            String tipo = cmbTipo.getSelectedItem().toString();
+        if ("Agregar Productos".equals(cmbOpcion.getSelectedItem())) {
             
-            if (tipo.equals("Caja Mazos")){
-                tipo = "Caja Mazos";
-            } else if (tipo.equals("Caja Sobres")){
-                tipo = "Caja Sobres";
-            } else if (tipo.equals("Caja Especial")){
-                tipo = "Caja Especial";
-            }
-            
-            int stock = Integer.parseInt(txtStock.getText().trim());
-            int precio = Integer.parseInt(txtPrecio.getText().trim());
-            String fechaSalida = txtFechaSalida.getText().trim();
-            String descripcion = txtDescripcion.getText().trim();
-            int cantidadSobre = txtCantidadSobre.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtCantidadSobre.getText().trim());
-            int cantidadMazo = txtCantidadMazos.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtCantidadMazos.getText().trim());
-            int cantidadSobreEspecial = txtCantidadSobresEspeciales.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtCantidadSobresEspeciales.getText().trim());
-            String cartaPromo = txtCartaPromocional.getText().trim();
-            String regaloExtra = txtRegaloEspecial.getText().trim();
-
-            if (sku.isEmpty() || nombre.isEmpty() || edicion.isEmpty() || tipo.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Faltan datos obligatorios.");
-                return;
-            }
-
+            String tipoSeleccionado = cmbTipo.getSelectedItem().toString();
             producto = null; 
-
-            switch (tipo) {
-                case "Caja Sobres":
-                    producto = new CajaSobre(cantidadSobre, edicion, nombre, linea, tipo, stock, precio, sku, fechaSalida, descripcion);
-                    break;
-                case "Caja Mazos":
-                    producto = new CajaMazo(cantidadMazo, edicion, nombre, linea, tipo, stock, precio, sku, fechaSalida, descripcion);
-                    break;
-                case "Caja Especial":
-                    producto = new CajaEspecial(cantidadSobreEspecial, cartaPromo, regaloExtra, edicion, nombre, linea, tipo, stock, precio, sku, fechaSalida, descripcion);
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(this, "El TIPO debe ser: CajaSobre, CajaMazo o CajaEspecial");
-                    return;
+            
+            boolean isTipoValido = false;
+            try {
+                if ("Caja Sobres".equals(tipoSeleccionado)) {
+                    producto = new CajaSobre(0, "", "", "", "Caja Sobres", 0, 0, "", "", ""); 
+                } else if ("Caja Mazos".equals(tipoSeleccionado)) {
+                    producto = new CajaMazo(0, "", "", "", "Caja Mazos", 0, 0, "", "", "");
+                } else if ("Caja Especial".equals(tipoSeleccionado)) {
+                    producto = new CajaEspecial(0, "", "", "", "", "", "Caja Especial", 0, 0, "", "", "");
+                } else {
+                    throw new Exception("Debe seleccionar un Tipo de Producto válido.");
+                }
+                isTipoValido = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            
+            
+            
+            boolean isSKUValido = false;
+            try {
+                String sku = txtSKU.getText().trim();
+                ValidadorSku.validarSku(txtSKU.getText());
+                producto.setSku(txtSKU.getText());
+                isSKUValido = true;
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Error en SKU: " + e.getMessage());
+            }
+            
+            
+            boolean isNombreValido = false;
+            
+            try {
+                ValidadorGeneral.validarTamanioTexto(txtNombre.getText(), 0, 50, "NOMBRE");
+                ValidadorGeneral.validarTextoVacio(txtNombre.getText(), "NOMBRE");
+                producto.setNombre(txtNombre.getText());
+                isNombreValido = true;
+            } catch (Exception Ex){
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
             }
 
-            if (producto != null) {
-                ProductoDAO dao = new ProductoDAO();
-                if (dao.insertar(producto)) {
-                    JOptionPane.showMessageDialog(this, "¡Producto guardado con éxito!");
-                    limpiarCampos();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Hubo un error al guardar en la Base de Datos. Revisa la consola.");
+            boolean isEdicionValido = false;
+            try {
+                ValidadorGeneral.validarTamanioTexto(txtEdicion.getText(), 0, 50, "EDICION");
+                ValidadorGeneral.validarTextoVacio(txtEdicion.getText(), "EDICION");
+                producto.setEdicion(txtEdicion.getText());
+                isEdicionValido = true;
+            } catch (Exception Ex){
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
+           
+
+            boolean isLineaValido = false;
+            try {
+                ValidadorGeneral.validarTamanioTexto(txtLinea.getText(), 0, 50, "LINEA");
+                ValidadorGeneral.validarTextoVacio(txtLinea.getText(), "LINEA");
+                producto.setLinea(txtLinea.getText());
+                isLineaValido = true;
+            } catch (Exception Ex){
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
+
+            boolean isStockValido = false;
+            try {
+                ValidadorGeneral.validarTamanioTexto(txtStock.getText(), 0, 4, "STOCK");
+                ValidadorGeneral.validarTextoVacio(txtStock.getText(), "STOCK");
+                producto.setStock(Integer.parseInt(txtStock.getText()));
+                isStockValido = true;
+            } catch (Exception Ex){
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
+
+            boolean isPrecioValido = false;
+            try {
+                ValidadorGeneral.validarTamanioTexto(txtPrecio.getText(), 0, 8, "PRECIO");
+                ValidadorGeneral.validarTextoVacio(txtStock.getText(), "PRECIO");
+                ValidadorGeneral.validarEnteroPositivo(txtPrecio.getText(), "PRECIO");
+                producto.setPrecio(Integer.parseInt(txtPrecio.getText()));
+                isPrecioValido = true;
+            } catch (Exception Ex){
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
+
+            boolean isFechaSalidaValido = false;
+            try {
+                ValidadorGeneral.validarTamanioTexto(txtFechaSalida.getText(), 0, 10, "FECHA_SALIDA");
+                ValidadorGeneral.validarTextoVacio(txtFechaSalida.getText(), "FECHA_SALIDA");
+                producto.setFechaSalida(txtFechaSalida.getText());
+                isFechaSalidaValido = true;
+            } catch (Exception Ex){
+               JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
+
+            boolean isDescripcionValido = false;
+            try {
+                ValidadorGeneral.validarTamanioTexto(txtDescripcion.getText(), 0, 80, "DESCRIPCION");
+                ValidadorGeneral.validarTextoVacio(txtDescripcion.getText(), "DESCRIPCION");
+                producto.setDescripcion(txtDescripcion.getText());
+                isDescripcionValido = true;
+            } catch (Exception Ex){
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
+
+
+            boolean isCantidadSobreValido = false;
+            boolean isCantidadMazoValido = false;
+            boolean isCantidadSobreEspecialValido = false;
+            boolean isCartaPromoValido = false;
+            boolean isRegaloExtraValido = false;
+
+
+            if (producto instanceof CajaSobre) {
+                try {
+                    ValidadorGeneral.validarEnteroPositivo(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
+                    ValidadorGeneral.validarTamanioTexto(txtCantidadSobre.getText(), 0, 4, "CANTIDAD_SOBRE");
+                    ValidadorGeneral.validarTextoVacio(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
+                    ((CajaSobre) producto).setCantidadPorCaja(Integer.parseInt(txtCantidadSobre.getText()));
+                    isCantidadSobreValido = true;
+                } catch (Exception Ex) {
+                    JOptionPane.showMessageDialog(this, Ex.getMessage());
                 }
             }
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error: Revisa que Stock, Precio y Cantidades sean números.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+            else if (producto instanceof CajaMazo) {
+                try {
+                    ValidadorGeneral.validarTamanioTexto(txtCantidadMazos.getText(), 0, 4, "CANTIDAD_MAZO");
+                    ValidadorGeneral.validarEnteroPositivo(txtCantidadMazos.getText(), "CANTIDAD_MAZO");
+                    ValidadorGeneral.validarTextoVacio(txtCantidadMazos.getText(), "CANTIDAD_MAZO");
+                    ((CajaMazo) producto).setCantidadPorCaja(Integer.parseInt(txtCantidadMazos.getText()));
+                    isCantidadMazoValido = true;
+                } catch (Exception Ex) {
+                    JOptionPane.showMessageDialog(this, Ex.getMessage());
+                }
+            }
+
+
+            else if (producto instanceof CajaEspecial) {
+                try {
+                    ValidadorGeneral.validarEnteroPositivo(txtCantidadSobresEspeciales.getText(), "CANTIDAD_SOBRE_ESPECIAL");
+                    ValidadorGeneral.validarTamanioTexto(txtCantidadSobre.getText(), 0, 4, "CANTIDAD_SOBRE");
+                    ValidadorGeneral.validarTextoVacio(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
+                    ((CajaEspecial) producto).setCantidadSobres(Integer.parseInt(txtCantidadSobresEspeciales.getText()));
+                    isCantidadSobreEspecialValido = true;
+                } catch (Exception Ex) {
+                    JOptionPane.showMessageDialog(this, Ex.getMessage());
+                }
+
+                try {
+                    ValidadorGeneral.validarTamanioTexto(txtCartaPromocional.getText(), 0, 80, "CARTA_PROMO");
+                    ValidadorGeneral.validarTextoVacio(txtCartaPromocional.getText(), "CARTA_PROMO");
+                    ((CajaEspecial) producto).setCartasPromo(txtCartaPromocional.getText());
+                    isCartaPromoValido = true;
+                } catch (Exception Ex) {
+                    JOptionPane.showMessageDialog(this, Ex.getMessage());
+                }
+
+                try {
+                    ValidadorGeneral.validarTamanioTexto(txtRegaloEspecial.getText(), 0, 80, "REGALO_EXTRA");
+                    ValidadorGeneral.validarTextoVacio(txtCartaPromocional.getText(), "CARTA_PROMO");
+                    ((CajaEspecial) producto).setRegaloExtra(txtRegaloEspecial.getText());
+                    isRegaloExtraValido = true;
+                } catch (Exception Ex) {
+                    JOptionPane.showMessageDialog(this, Ex.getMessage());
+                }
+            }
+
+
+            boolean isTipoProductoValido = false;
+            if (producto instanceof CajaSobre) {
+                isTipoProductoValido = isCantidadSobreValido;
+            } else if (producto instanceof CajaMazo) {
+                isTipoProductoValido = isCantidadMazoValido;
+            } else if (producto instanceof CajaEspecial) {
+                isTipoProductoValido = isCantidadSobreEspecialValido && isCartaPromoValido && isRegaloExtraValido;
+            }
+
+
+            if (isSKUValido && isNombreValido && isEdicionValido && isLineaValido && isTipoValido
+               && isStockValido && isPrecioValido && isFechaSalidaValido 
+               && isDescripcionValido && isTipoProductoValido) {
+
+                ProductoDAO dao = new ProductoDAO();
+                boolean resultado = dao.insertar(producto);
+
+                System.out.println("actualizar -> " + resultado);
+
+            if (resultado) {
+                    JOptionPane.showMessageDialog(this, "El Producto se agregó correctamente");
+                    limpiarCampos();
+
+                    this.producto = null;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al agregar el producto");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor corrija los errores en los campos antes de guardar");
+            }
     }
     
     else if ("Editar Productos".equals(cmbOpcion.getSelectedItem())) {
@@ -414,6 +552,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         boolean isPrecioValido = false;
         try {
             ValidadorGeneral.validarTamanioTexto(txtPrecio.getText(), 0, 8, "PRECIO");
+            ValidadorGeneral.validarEnteroPositivo(txtPrecio.getText(), "PRECIO");
             producto.setPrecio(Integer.parseInt(txtPrecio.getText()));
             isPrecioValido = true;
         } catch (Exception Ex){
@@ -449,6 +588,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         if (producto instanceof CajaSobre) {
             try {
                 ValidadorGeneral.validarNumeroEntero(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
+                ValidadorGeneral.validarTamanioTexto(txtCantidadSobre.getText(), 0, 4, "CANTIDAD_SOBRE");
                 ((CajaSobre) producto).setCantidadPorCaja(Integer.parseInt(txtCantidadSobre.getText()));
                 isCantidadSobreValido = true;
             } catch (Exception Ex) {
@@ -471,6 +611,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         else if (producto instanceof CajaEspecial) {
             try {
                 ValidadorGeneral.validarNumeroEntero(txtCantidadSobresEspeciales.getText(), "CANTIDAD_SOBRE_ESPECIAL");
+                ValidadorGeneral.validarTamanioTexto(txtCantidadSobre.getText(), 0, 4, "CANTIDAD_SOBRE");
                 ((CajaEspecial) producto).setCantidadSobres(Integer.parseInt(txtCantidadSobresEspeciales.getText()));
                 isCantidadSobreEspecialValido = true;
             } catch (Exception Ex) {
@@ -494,20 +635,21 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             }
         }
         
+        
        
-        boolean isEspecificoValido = false;
+        boolean isTipoProductoValido = false;
         if (producto instanceof CajaSobre) {
-            isEspecificoValido = isCantidadSobreValido;
+            isTipoProductoValido = isCantidadSobreValido;
         } else if (producto instanceof CajaMazo) {
-            isEspecificoValido = isCantidadMazoValido;
+            isTipoProductoValido = isCantidadMazoValido;
         } else if (producto instanceof CajaEspecial) {
-            isEspecificoValido = isCantidadSobreEspecialValido && isCartaPromoValido && isRegaloExtraValido;
+            isTipoProductoValido = isCantidadSobreEspecialValido && isCartaPromoValido && isRegaloExtraValido;
         }
         
     
         if (isNombreValido && isEdicionValido && isLineaValido
            && isStockValido && isPrecioValido && isFechaSalidaValido 
-           && isDescripcionValido && isEspecificoValido) {
+           && isDescripcionValido && isTipoProductoValido) {
             
             ProductoDAO dao = new ProductoDAO();
             boolean resultado = dao.actualizarProducto(producto);
@@ -564,7 +706,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-      String sku = txtSKU.getText();
+        String sku = txtSKU.getText();
         ProductoDAO dao = new ProductoDAO();
         boolean resultado = dao.eliminarProducto(sku); 
         System.out.println("borrar -> " + resultado);   
@@ -595,62 +737,62 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbOpcionActionPerformed
 
     private void btnLupaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLupaActionPerformed
-            //if (this.producto == null) {
-            String skuBuscado = txtSKU.getText().trim();
-            
-            if (skuBuscado.isEmpty()) {
-                JOptionPane.showMessageDialog(this, 
-                    "Primero debe ingresar un SKU para buscar el producto",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            ProductoDAO dao = new ProductoDAO();
-            Producto p = dao.buscarPorSku(skuBuscado);
-            
-            if (p != null) {
-                this.producto = p;
+
+    String skuBuscado = txtSKU.getText().trim();
+
+    if (skuBuscado.isEmpty()) {
+        JOptionPane.showMessageDialog(this, 
+            "Primero debe ingresar un SKU para buscar el producto",
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    ProductoDAO dao = new ProductoDAO();
+    Producto p = dao.buscarPorSku(skuBuscado);
+
+    if (p != null) {
+        this.producto = p;
     } else {
         JOptionPane.showMessageDialog(this, "Producto no encontrado");
         this.producto = null;
         return;
     }
-            
-            txtNombre.setText(p.getNombre());
-            txtEdicion.setText(p.getEdicion());
-            txtLinea.setText(p.getLinea());
-            txtStock.setText("" + p.getStock());
-            txtPrecio.setText("" + p.getPrecio());
-            txtFechaSalida.setText(p.getFechaSalida());
-            txtDescripcion.setText(p.getDescripcion());
-            
-            if (p instanceof CajaMazo){
-                txtCantidadMazos.setText("" + ((CajaMazo) p).getCantidadPorCaja());
-            }else if (p instanceof CajaSobre){
-                txtCantidadSobre.setText("" + ((CajaSobre) p).getCantidadPorCaja());
-            }else if (p instanceof CajaEspecial){
-                txtCantidadSobresEspeciales.setText("" + ((CajaEspecial) p).getCantidadSobres());
-                txtCartaPromocional.setText(((CajaEspecial) p).getCartasPromo());
-                txtRegaloEspecial.setText(((CajaEspecial) p).getRegaloExtra());
-            
-            
-            
-            
-            if (this.producto == null) {
-                JOptionPane.showMessageDialog(this, 
-                    "No se encontró ningún producto con el SKU: " + skuBuscado + "\n\nPor favor, verifique el SKU e intente nuevamente.",
-                    "Producto no encontrado",
-                    JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            
- 
+
+    txtNombre.setText(p.getNombre());
+    txtEdicion.setText(p.getEdicion());
+    txtLinea.setText(p.getLinea());
+    txtStock.setText("" + p.getStock());
+    txtPrecio.setText("" + p.getPrecio());
+    txtFechaSalida.setText(p.getFechaSalida());
+    txtDescripcion.setText(p.getDescripcion());
+
+    if (p instanceof CajaMazo){
+        txtCantidadMazos.setText("" + ((CajaMazo) p).getCantidadPorCaja());
+    }else if (p instanceof CajaSobre){
+        txtCantidadSobre.setText("" + ((CajaSobre) p).getCantidadPorCaja());
+    }else if (p instanceof CajaEspecial){
+        txtCantidadSobresEspeciales.setText("" + ((CajaEspecial) p).getCantidadSobres());
+        txtCartaPromocional.setText(((CajaEspecial) p).getCartasPromo());
+        txtRegaloEspecial.setText(((CajaEspecial) p).getRegaloExtra());
+
+
+
+
+    if (this.producto == null) {
+        JOptionPane.showMessageDialog(this, 
+            "No se encontró ningún producto con el SKU: " + skuBuscado + "\n\nPor favor, verifique el SKU e intente nuevamente.",
+            "Producto no encontrado",
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+
+
         
-        
-        producto.setSku(txtSKU.getText());
+    producto.setSku(txtSKU.getText());
    
-            }
+    }
             
 
     }//GEN-LAST:event_btnLupaActionPerformed
