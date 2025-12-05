@@ -367,4 +367,47 @@ public boolean actualizarCajaEspecial(CajaEspecial producto) {
     }
     return p;
 }
+    public List<Producto> buscarPorNombre(String nombreBuscado) {
+    List<Producto> lista = new ArrayList<>();
+    String sql = "SELECT * FROM PRODUCTO WHERE NOMBRE = ?"; 
+    
+    try (PreparedStatement ps = ConexionDAO.getConnection().prepareStatement(sql)) {
+        ps.setString(1, nombreBuscado);
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String sku = rs.getString("SKU");
+                String nombre = rs.getString("NOMBRE");
+                String edicion = rs.getString("EDICION");
+                String linea = rs.getString("LINEA");
+                String tipoBd = rs.getString("TIPO");
+                int stock = rs.getInt("STOCK");
+                int precio = rs.getInt("PRECIO");
+                String fecha = rs.getString("FECHA_SALIDA");
+                String descripcion = rs.getString("DESCRIPCION");
+
+                Producto p = null;
+
+                switch (tipoBd) { 
+                    case "Caja Sobres": 
+                        p = new CajaSobre(rs.getInt("CANTIDAD_SOBRE"), edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion);
+                        break;
+                    case "Caja Mazos":
+                        p = new CajaMazo(rs.getInt("CANTIDAD_MAZO"), edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion);
+                        break;
+                    case "Caja Especial":
+                        p = new CajaEspecial(rs.getInt("CANTIDAD_SOBRE_ESPECIAL"), rs.getString("CARTA_PROMO"), rs.getString("REGALO_EXTRA"), edicion, nombre, linea, tipoBd, stock, precio, sku, fecha, descripcion);
+                        break;
+                }
+                
+                if (p != null) {
+                    lista.add(p);
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al buscar por Nombre: " + e.getMessage());
+    }
+    return lista;
+}
 }

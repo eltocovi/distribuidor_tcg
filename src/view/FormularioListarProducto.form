@@ -69,11 +69,11 @@
                           <Component id="cmbListar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                           <Component id="btnListar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="lblBuscarSkuListar" min="-2" pref="109" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="cmbBuscarPor" min="-2" pref="153" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="txtBuscarSkuListar" min="-2" pref="155" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnBuscarListar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -89,8 +89,8 @@
                       <Component id="cmbListar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnListar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtBuscarSkuListar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblBuscarSkuListar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscarListar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbBuscarPor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="33" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="587" max="-2" attributes="0"/>
@@ -155,11 +155,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarSkuListarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblBuscarSkuListar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar por Sku"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnBuscarListar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
@@ -167,6 +162,22 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarListarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbBuscarPor">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Buscar por SKU"/>
+                <StringItem index="1" value="Buscar por Nombre"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbBuscarPorActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
