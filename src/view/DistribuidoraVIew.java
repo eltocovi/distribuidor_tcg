@@ -368,7 +368,10 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     
     else if ("Editar Productos".equals(cmbOpcion.getSelectedItem())) {
         
- 
+        if (this.producto == null) {
+        JOptionPane.showMessageDialog(this, "Primero debe buscar el producto con la Lupa (ingrese SKU) para poder editarlo.");
+        return;
+        }
         
         
         boolean isNombreValido = false;
@@ -592,7 +595,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbOpcionActionPerformed
 
     private void btnLupaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLupaActionPerformed
-            if (this.producto == null) {
+            //if (this.producto == null) {
             String skuBuscado = txtSKU.getText().trim();
             
             if (skuBuscado.isEmpty()) {
@@ -607,9 +610,10 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             Producto p = dao.buscarPorSku(skuBuscado);
             
             if (p != null) {
-        this.producto = p;
+                this.producto = p;
     } else {
         JOptionPane.showMessageDialog(this, "Producto no encontrado");
+        this.producto = null;
         return;
     }
             
@@ -623,7 +627,12 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             
             if (p instanceof CajaMazo){
                 txtCantidadMazos.setText("" + ((CajaMazo) p).getCantidadPorCaja());
-            }
+            }else if (p instanceof CajaSobre){
+                txtCantidadSobre.setText("" + ((CajaSobre) p).getCantidadPorCaja());
+            }else if (p instanceof CajaEspecial){
+                txtCantidadSobresEspeciales.setText("" + ((CajaEspecial) p).getCantidadSobres());
+                txtCartaPromocional.setText(((CajaEspecial) p).getCartasPromo());
+                txtRegaloEspecial.setText(((CajaEspecial) p).getRegaloExtra());
             
             
             
@@ -641,7 +650,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         
         producto.setSku(txtSKU.getText());
    
-             }
+            }
+            
 
     }//GEN-LAST:event_btnLupaActionPerformed
     
