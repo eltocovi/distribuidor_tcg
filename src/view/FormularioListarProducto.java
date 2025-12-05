@@ -11,6 +11,7 @@ import model.*;
  * @author Vitoco
  */
 public class FormularioListarProducto extends javax.swing.JFrame {
+    private static FormularioListarProducto instanciaActual = null;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormularioListarProducto.class.getName());
 
@@ -18,8 +19,20 @@ public class FormularioListarProducto extends javax.swing.JFrame {
      * Creates new form FormularioListarProducto
      */
     public FormularioListarProducto() {
-        initComponents();
+        if (instanciaActual != null) {
+            instanciaActual.dispose(); 
+        }
+        instanciaActual = this;
+
+
+        initComponents(); 
+        
+
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
         this.setLocationRelativeTo(null);
+        
+
         ProductoDAO dao = new ProductoDAO();
         jtListar.getColumnModel().getColumn(0).setPreferredWidth(80); 
         jtListar.getColumnModel().getColumn(1).setPreferredWidth(150); 
@@ -28,7 +41,6 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         jtListar.getColumnModel().getColumn(4).setPreferredWidth(50); 
         jtListar.getColumnModel().getColumn(5).setPreferredWidth(100); 
         jtListar.getColumnModel().getColumn(6).setPreferredWidth(300);
-        
     }
 
     /**
