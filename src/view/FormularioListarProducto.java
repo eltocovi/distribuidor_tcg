@@ -36,11 +36,13 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         ProductoDAO dao = new ProductoDAO();
         jtListar.getColumnModel().getColumn(0).setPreferredWidth(80); 
         jtListar.getColumnModel().getColumn(1).setPreferredWidth(240); 
-        jtListar.getColumnModel().getColumn(2).setPreferredWidth(50); 
-        jtListar.getColumnModel().getColumn(3).setPreferredWidth(70); 
-        jtListar.getColumnModel().getColumn(4).setPreferredWidth(50); 
+        jtListar.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jtListar.getColumnModel().getColumn(3).setPreferredWidth(70);
+        jtListar.getColumnModel().getColumn(4).setPreferredWidth(60);
         jtListar.getColumnModel().getColumn(5).setPreferredWidth(70); 
-        jtListar.getColumnModel().getColumn(6).setPreferredWidth(370);
+        jtListar.getColumnModel().getColumn(6).setPreferredWidth(35); 
+        jtListar.getColumnModel().getColumn(7).setPreferredWidth(70); 
+        jtListar.getColumnModel().getColumn(8).setPreferredWidth(390);
     }
 
     /**
@@ -94,7 +96,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Sku", "Nombre", "Edicion", "Precio", "Stock", "Tipo", "InfoEspecifica"
+                "Sku", "Nombre", "Edicion", "Linea", "Fecha", "Precio", "Stock", "Tipo", "InfoEspecifica"
             }
         ));
         jScrollPane1.setViewportView(jtListar);
@@ -126,7 +128,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1254, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(cmbListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
@@ -150,7 +152,7 @@ public class FormularioListarProducto extends javax.swing.JFrame {
                     .addComponent(btnBuscarListar)
                     .addComponent(cmbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -160,13 +162,13 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 106, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,7 +227,9 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         Object[] fila = new Object[] {
             p.getSku(),
             p.getNombre(),
-            p.getEdicion(), 
+            p.getEdicion(),
+            p.getLinea(), 
+            p.getFechaSalida(),
             p.getPrecio(),
             p.getStock(),
             p.getTipo(),    
@@ -284,7 +288,9 @@ public class FormularioListarProducto extends javax.swing.JFrame {
         Object[] fila = new Object[] {
             p.getSku(),
             p.getNombre(),
-            p.getEdicion(), 
+            p.getEdicion(),
+            p.getLinea(), 
+            p.getFechaSalida(),
             p.getPrecio(),
             p.getStock(),
             p.getTipo(),    
@@ -334,7 +340,9 @@ public class FormularioListarProducto extends javax.swing.JFrame {
             Object[] fila = new Object[] {
                 prodIterado.getSku(),     
                 prodIterado.getNombre(),   
-                prodIterado.getEdicion(),  
+                prodIterado.getEdicion(),
+                prodIterado.getLinea(), 
+                prodIterado.getFechaSalida(),
                 prodIterado.getPrecio(),
                 prodIterado.getStock(),
                 prodIterado.getTipo(),     

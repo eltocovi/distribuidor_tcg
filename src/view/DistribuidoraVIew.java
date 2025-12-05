@@ -74,7 +74,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         cmbOpcion = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnLupa = new javax.swing.JButton();
-        lblTitulo = new java.awt.Label();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -207,11 +207,10 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         getContentPane().add(btnLupa);
         btnLupa.setBounds(280, 200, 60, 40);
 
-        lblTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lblTitulo.setText("DISTRIBUIDORA TCG BOLA DE FUEGO");
-        getContentPane().add(lblTitulo);
-        lblTitulo.setBounds(100, 10, 550, 50);
-        lblTitulo.getAccessibleContext().setAccessibleName("");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setText("DISTRIBUIDORA TCG BOLA DE FUEGO");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(110, 20, 570, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -287,6 +286,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             try {
                 ValidadorGeneral.validarTamanioTexto(txtStock.getText(), 0, 4, "STOCK");
                 ValidadorGeneral.validarTextoVacio(txtStock.getText(), "STOCK");
+                ValidadorGeneral.validarStock(txtStock.getText(), "STOCK");
                 producto.setStock(Integer.parseInt(txtStock.getText()));
                 isStockValido = true;
             } catch (Exception Ex){
@@ -388,7 +388,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
                 try {
                     ValidadorGeneral.validarTamanioTexto(txtRegaloEspecial.getText(), 0, 80, "REGALO_EXTRA");
-                    ValidadorGeneral.validarTextoVacio(txtRegaloEspecial.getText(), "CARTA_PROMO");
+                    ValidadorGeneral.validarTextoVacio(txtRegaloEspecial.getText(), "REGALO_EXTRA");
                     ((CajaEspecial) producto).setRegaloExtra(txtRegaloEspecial.getText());
                     isRegaloExtraValido = true;
                 } catch (Exception Ex) {
@@ -440,6 +440,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         boolean isNombreValido = false;
         try {
             ValidadorGeneral.validarTamanioTexto(txtNombre.getText(), 0, 50, "NOMBRE");
+            ValidadorGeneral.validarTextoVacio(txtNombre.getText(), "NOMBRE");
             producto.setNombre(txtNombre.getText());
             isNombreValido = true;
         } catch (Exception Ex){
@@ -449,6 +450,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         boolean isEdicionValido = false;
         try {
             ValidadorGeneral.validarTamanioTexto(txtEdicion.getText(), 0, 50, "EDICION");
+            ValidadorGeneral.validarTextoVacio(txtEdicion.getText(), "EDICION");
             producto.setEdicion(txtEdicion.getText());
             isEdicionValido = true;
         } catch (Exception Ex){
@@ -467,7 +469,9 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         
         boolean isStockValido = false;
         try {
+            ValidadorGeneral.validarTextoVacio(txtStock.getText(), "STOCK");
             ValidadorGeneral.validarTamanioTexto(txtStock.getText(), 0, 4, "STOCK");
+            ValidadorGeneral.validarStock(txtStock.getText(), "STOCK");
             producto.setStock(Integer.parseInt(txtStock.getText()));
             isStockValido = true;
         } catch (Exception Ex){
@@ -476,6 +480,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         
         boolean isPrecioValido = false;
         try {
+            ValidadorGeneral.validarTextoVacio(txtPrecio.getText(), "PRECIO");
             ValidadorGeneral.validarTamanioTexto(txtPrecio.getText(), 0, 8, "PRECIO");
             ValidadorGeneral.validarEnteroPositivo(txtPrecio.getText(), "PRECIO");
             producto.setPrecio(Integer.parseInt(txtPrecio.getText()));
@@ -521,7 +526,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         
         if (producto instanceof CajaSobre) {
             try {
-                ValidadorGeneral.validarNumeroEntero(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
+                ValidadorGeneral.validarEnteroPositivo(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
+                ValidadorGeneral.validarTextoVacio(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
                 ValidadorGeneral.validarTamanioTexto(txtCantidadSobre.getText(), 0, 4, "CANTIDAD_SOBRE");
                 ((CajaSobre) producto).setCantidadPorCaja(Integer.parseInt(txtCantidadSobre.getText()));
                 isCantidadSobreValido = true;
@@ -534,6 +540,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         else if (producto instanceof CajaMazo) {
             try {
                 ValidadorGeneral.validarTamanioTexto(txtCantidadMazos.getText(), 0, 4, "CANTIDAD_MAZO");
+                ValidadorGeneral.validarTextoVacio(txtCantidadMazos.getText(), "CANTIDAD_MAZO");
+                ValidadorGeneral.validarEnteroPositivo(txtCantidadMazos.getText(), "CANTIDAD_MAZO");
                 ((CajaMazo) producto).setCantidadPorCaja(Integer.parseInt(txtCantidadMazos.getText()));
                 isCantidadMazoValido = true;
             } catch (Exception Ex) {
@@ -545,7 +553,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         else if (producto instanceof CajaEspecial) {
             try {
                 ValidadorGeneral.validarNumeroEntero(txtCantidadSobresEspeciales.getText(), "CANTIDAD_SOBRE_ESPECIAL");
-                ValidadorGeneral.validarTamanioTexto(txtCantidadSobresEspeciales.getText(), 0, 4, "CANTIDAD_SOBRE");
+                ValidadorGeneral.validarTamanioTexto(txtCantidadSobresEspeciales.getText(), 0, 4, "CANTIDAD_SOBRE_ESPECIAL");
+                ValidadorGeneral.validarTextoVacio(txtCantidadSobresEspeciales.getText(), "CANTIDAD_SOBRE_ESPECIAL");
                 ((CajaEspecial) producto).setCantidadSobres(Integer.parseInt(txtCantidadSobresEspeciales.getText()));
                 isCantidadSobreEspecialValido = true;
             } catch (Exception Ex) {
@@ -554,6 +563,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             
             try {
                 ValidadorGeneral.validarTamanioTexto(txtCartaPromocional.getText(), 0, 80, "CARTA_PROMO");
+                ValidadorGeneral.validarTextoVacio(txtCartaPromocional.getText(), "CARTA_PROMO");
                 ((CajaEspecial) producto).setCartasPromo(txtCartaPromocional.getText());
                 isCartaPromoValido = true;
             } catch (Exception Ex) {
@@ -562,6 +572,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             
             try {
                 ValidadorGeneral.validarTamanioTexto(txtRegaloEspecial.getText(), 0, 80, "REGALO_EXTRA");
+                ValidadorGeneral.validarTextoVacio(txtRegaloEspecial.getText(), "REGALO_EXTRA");
                 ((CajaEspecial) producto).setRegaloExtra(txtRegaloEspecial.getText());
                 isRegaloExtraValido = true;
             } catch (Exception Ex) {
@@ -682,12 +693,14 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             btnGuardar.setText("Guardar Cambios");
             btnGuardar.setVisible(true);
             btnBorrar.setVisible(false);
+            cmbTipo.setEnabled(false);
         } 
         else if ("Agregar Productos".equals(opcion)) {
             mostrarElementosGenerales();
             btnLupa.setVisible(false);
             lblTipo.setVisible(true);
-            cmbTipo.setVisible(true); 
+            cmbTipo.setVisible(true);
+            cmbTipo.setEnabled(true);
             btnGuardar.setText("Guardar");
             btnGuardar.setVisible(true);
             btnBorrar.setVisible(false);
@@ -697,6 +710,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             btnLupa.setVisible(true); 
             btnGuardar.setVisible(false);
             btnBorrar.setVisible(true);
+            cmbTipo.setEnabled(false);
         }
         else {
             btnLupa.setVisible(false);
@@ -741,6 +755,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtFechaSalida.setText(p.getFechaSalida());
     }
     txtDescripcion.setText(p.getDescripcion());
+    cmbTipo.setEnabled(false);
 
     if (p instanceof CajaMazo){
         txtCantidadMazos.setText("" + ((CajaMazo) p).getCantidadPorCaja());
@@ -756,24 +771,11 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtRegaloEspecial.setText(((CajaEspecial) p).getRegaloExtra());
         cmbTipo.setSelectedItem("Caja Especial");
         accionCajaEspecial();
-
-
-
-
-    if (this.producto == null) {
-        JOptionPane.showMessageDialog(this, 
-            "No se encontró ningún producto con el SKU: " + skuBuscado + "\n\nPor favor, verifique el SKU e intente nuevamente.",
-            "Producto no encontrado",
-            JOptionPane.WARNING_MESSAGE);
-        return;
     }
 
+    cmbTipo.setEnabled(false);
 
-
-        
-    producto.setSku(txtSKU.getText());
-   
-    }
+    
             
 
     }//GEN-LAST:event_btnLupaActionPerformed
@@ -984,6 +986,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblCantidadMazo;
     private javax.swing.JLabel lblCantidadSobre;
     private javax.swing.JLabel lblCantidadSobreEspecial;
@@ -998,7 +1001,6 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     private javax.swing.JLabel lblSKU;
     private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblTipo;
-    public java.awt.Label lblTitulo;
     private javax.swing.JTextField txtCantidadMazos;
     private javax.swing.JTextField txtCantidadSobre;
     private javax.swing.JTextField txtCantidadSobresEspeciales;
