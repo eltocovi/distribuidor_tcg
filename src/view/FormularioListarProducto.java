@@ -35,12 +35,12 @@ public class FormularioListarProducto extends javax.swing.JFrame {
 
         ProductoDAO dao = new ProductoDAO();
         jtListar.getColumnModel().getColumn(0).setPreferredWidth(80); 
-        jtListar.getColumnModel().getColumn(1).setPreferredWidth(150); 
-        jtListar.getColumnModel().getColumn(2).setPreferredWidth(120); 
+        jtListar.getColumnModel().getColumn(1).setPreferredWidth(240); 
+        jtListar.getColumnModel().getColumn(2).setPreferredWidth(50); 
         jtListar.getColumnModel().getColumn(3).setPreferredWidth(70); 
         jtListar.getColumnModel().getColumn(4).setPreferredWidth(50); 
-        jtListar.getColumnModel().getColumn(5).setPreferredWidth(100); 
-        jtListar.getColumnModel().getColumn(6).setPreferredWidth(300);
+        jtListar.getColumnModel().getColumn(5).setPreferredWidth(70); 
+        jtListar.getColumnModel().getColumn(6).setPreferredWidth(370);
     }
 
     /**

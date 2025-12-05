@@ -10,6 +10,7 @@ import model.*;
 import javax.swing.JOptionPane;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import utils.FechaUtil;
 import validator.*;
 /**
  *
@@ -24,9 +25,11 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
      */
     public DistribuidoraVIew() {
         initComponents();
-        this.pack();
+        this.setSize(696, 650);
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         limpiarCampos();
+        btnLupa.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,229 +74,142 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         cmbOpcion = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnLupa = new javax.swing.JButton();
+        lblTitulo = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         lblSKU.setText("SKU");
+        getContentPane().add(lblSKU);
+        lblSKU.setBounds(56, 209, 37, 16);
 
         lblNombre.setText("Nombre");
+        getContentPane().add(lblNombre);
+        lblNombre.setBounds(50, 240, 80, 30);
 
         lblEdicion.setText("Edición");
+        getContentPane().add(lblEdicion);
+        lblEdicion.setBounds(50, 270, 60, 40);
 
         lblLinea.setText("Linea");
+        getContentPane().add(lblLinea);
+        lblLinea.setBounds(60, 310, 50, 30);
 
         lblTipo.setText("Tipo");
+        getContentPane().add(lblTipo);
+        lblTipo.setBounds(50, 171, 50, 20);
 
         lblStock.setText("Stock");
+        getContentPane().add(lblStock);
+        lblStock.setBounds(58, 358, 37, 16);
 
         lblPrecio.setText("Precio");
+        getContentPane().add(lblPrecio);
+        lblPrecio.setBounds(60, 400, 33, 16);
 
         lblFechaSalida.setText("Fecha Salida");
+        getContentPane().add(lblFechaSalida);
+        lblFechaSalida.setBounds(30, 430, 100, 40);
 
         lblDescripcion.setText("Descripción");
+        getContentPane().add(lblDescripcion);
+        lblDescripcion.setBounds(380, 180, 110, 40);
 
         lblCantidadMazo.setText("Cantidad Mazos");
+        getContentPane().add(lblCantidadMazo);
+        lblCantidadMazo.setBounds(370, 220, 160, 40);
 
         lblCantidadSobre.setText("Cantidad Sobre");
+        getContentPane().add(lblCantidadSobre);
+        lblCantidadSobre.setBounds(370, 260, 140, 40);
 
         lblRegaloExtra.setText("Regalo Extra");
+        getContentPane().add(lblRegaloExtra);
+        lblRegaloExtra.setBounds(380, 410, 140, 60);
 
         lblCartaPromo.setText("Carta Promocional");
+        getContentPane().add(lblCartaPromo);
+        lblCartaPromo.setBounds(350, 370, 140, 40);
 
         lblCantidadSobreEspecial.setText("Cantidad Sobres Especial");
+        getContentPane().add(lblCantidadSobreEspecial);
+        lblCantidadSobreEspecial.setBounds(320, 310, 170, 60);
 
         txtSKU.addActionListener(this::txtSKUActionPerformed);
+        getContentPane().add(txtSKU);
+        txtSKU.setBounds(111, 206, 158, 22);
 
         txtNombre.addActionListener(this::txtNombreActionPerformed);
+        getContentPane().add(txtNombre);
+        txtNombre.setBounds(111, 241, 158, 22);
+        getContentPane().add(txtEdicion);
+        txtEdicion.setBounds(111, 281, 158, 22);
+        getContentPane().add(txtLinea);
+        txtLinea.setBounds(111, 315, 158, 22);
+        getContentPane().add(txtStock);
+        txtStock.setBounds(111, 355, 158, 22);
 
         txtPrecio.addActionListener(this::txtPrecioActionPerformed);
+        getContentPane().add(txtPrecio);
+        txtPrecio.setBounds(111, 395, 158, 22);
+        getContentPane().add(txtFechaSalida);
+        txtFechaSalida.setBounds(110, 440, 158, 22);
 
         txtDescripcion.addActionListener(this::txtDescripcionActionPerformed);
+        getContentPane().add(txtDescripcion);
+        txtDescripcion.setBounds(470, 190, 162, 22);
+        getContentPane().add(txtCantidadSobre);
+        txtCantidadSobre.setBounds(470, 270, 162, 22);
+        getContentPane().add(txtCantidadMazos);
+        txtCantidadMazos.setBounds(470, 230, 162, 20);
+        getContentPane().add(txtCantidadSobresEspeciales);
+        txtCantidadSobresEspeciales.setBounds(470, 330, 162, 22);
 
         txtCartaPromocional.addActionListener(this::txtCartaPromocionalActionPerformed);
+        getContentPane().add(txtCartaPromocional);
+        txtCartaPromocional.setBounds(470, 380, 162, 22);
+        getContentPane().add(txtRegaloEspecial);
+        txtRegaloEspecial.setBounds(470, 430, 162, 22);
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
+        getContentPane().add(btnGuardar);
+        btnGuardar.setBounds(100, 520, 160, 30);
 
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Opción", "Caja Mazos", "Caja Sobres", "Caja Especial" }));
         cmbTipo.addActionListener(this::cmbTipoActionPerformed);
+        getContentPane().add(cmbTipo);
+        cmbTipo.setBounds(111, 172, 158, 22);
 
         jButton1.setText("Listar");
         jButton1.addActionListener(this::jButton1ActionPerformed);
+        getContentPane().add(jButton1);
+        jButton1.setBounds(500, 520, 130, 30);
 
         btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(this::btnBorrarActionPerformed);
+        getContentPane().add(btnBorrar);
+        btnBorrar.setBounds(300, 520, 150, 30);
 
         cmbOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Agregar Productos", "Editar Productos", "Borrar Productos" }));
         cmbOpcion.addActionListener(this::cmbOpcionActionPerformed);
+        getContentPane().add(cmbOpcion);
+        cmbOpcion.setBounds(300, 100, 133, 22);
 
         jLabel1.setText("Seleccione opción:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(180, 100, 111, 16);
 
         btnLupa.setText("🔍");
         btnLupa.addActionListener(this::btnLupaActionPerformed);
+        getContentPane().add(btnLupa);
+        btnLupa.setBounds(280, 200, 60, 40);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(279, 279, 279)
-                        .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(37, 37, 37)
-                                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(52, 52, 52)
-                                                .addComponent(lblEdicion))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(58, 58, 58)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lblLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lblStock, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lblPrecio)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(56, 56, 56)
-                                                .addComponent(lblSKU, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(lblFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(20, 20, 20)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtEdicion)
-                                            .addComponent(txtLinea, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPrecio)
-                                            .addComponent(txtStock, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtSKU, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                                            .addComponent(txtFechaSalida)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLupa)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(lblDescripcion)
-                                    .addGap(78, 78, 78)
-                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblRegaloExtra)
-                                            .addGap(108, 108, 108))
-                                        .addComponent(lblCartaPromo, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(139, 139, 139)
-                                        .addComponent(txtCantidadMazos, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblCantidadMazo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblCantidadSobre)
-                                        .addGap(58, 58, 58)
-                                        .addComponent(txtCantidadSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnBorrar)
-                                        .addComponent(lblCantidadSobreEspecial))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtCantidadSobresEspeciales)
-                                        .addComponent(txtRegaloEspecial)
-                                        .addComponent(txtCartaPromocional, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(17, 17, 17))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDescripcion)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTipo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSKU)
-                    .addComponent(txtSKU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCantidadMazos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCantidadMazo)
-                    .addComponent(btnLupa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNombre)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblEdicion)
-                            .addComponent(txtEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblLinea)
-                            .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblStock)
-                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCantidadSobre)
-                            .addComponent(txtCantidadSobre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCantidadSobreEspecial)
-                            .addComponent(txtCantidadSobresEspeciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCartaPromo)
-                            .addComponent(txtCartaPromocional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtRegaloEspecial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRegaloExtra))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPrecio)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblFechaSalida)
-                            .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGuardar)
-                            .addComponent(btnBorrar))
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap())))
-        );
+        lblTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblTitulo.setText("DISTRIBUIDORA TCG BOLA DE FUEGO");
+        getContentPane().add(lblTitulo);
+        lblTitulo.setBounds(100, 10, 550, 50);
+        lblTitulo.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -359,7 +275,6 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             boolean isLineaValido = false;
             try {
                 ValidadorGeneral.validarTamanioTexto(txtLinea.getText(), 0, 50, "LINEA");
-                ValidadorGeneral.validarTextoVacio(txtLinea.getText(), "LINEA");
                 producto.setLinea(txtLinea.getText());
                 isLineaValido = true;
             } catch (Exception Ex){
@@ -389,18 +304,19 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
             boolean isFechaSalidaValido = false;
             try {
-                ValidadorGeneral.validarTamanioTexto(txtFechaSalida.getText(), 0, 10, "FECHA_SALIDA");
-                ValidadorGeneral.validarTextoVacio(txtFechaSalida.getText(), "FECHA_SALIDA");
-                producto.setFechaSalida(txtFechaSalida.getText());
+                java.util.Date fechaCl = FechaUtil.textoADate(txtFechaSalida.getText(), FechaUtil.DD_MM_YYYY);
+                String fechaSQL = FechaUtil.DateATexto(fechaCl, "yyyy-MM-dd");
+                producto.setFechaSalida(fechaSQL);
                 isFechaSalidaValido = true;
+            } catch (java.text.ParseException e) {
+                JOptionPane.showMessageDialog(this, "Error en Fecha: Use el formato " + FechaUtil.DD_MM_YYYY + " (ej: 25-12-2023)");
             } catch (Exception Ex){
-               JOptionPane.showMessageDialog(this, Ex.getMessage());
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
             }
 
             boolean isDescripcionValido = false;
             try {
                 ValidadorGeneral.validarTamanioTexto(txtDescripcion.getText(), 0, 80, "DESCRIPCION");
-                ValidadorGeneral.validarTextoVacio(txtDescripcion.getText(), "DESCRIPCION");
                 producto.setDescripcion(txtDescripcion.getText());
                 isDescripcionValido = true;
             } catch (Exception Ex){
@@ -444,8 +360,8 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
             else if (producto instanceof CajaEspecial) {
                 try {
                     ValidadorGeneral.validarEnteroPositivo(txtCantidadSobresEspeciales.getText(), "CANTIDAD_SOBRE_ESPECIAL");
-                    ValidadorGeneral.validarTamanioTexto(txtCantidadSobre.getText(), 0, 4, "CANTIDAD_SOBRE");
-                    ValidadorGeneral.validarTextoVacio(txtCantidadSobre.getText(), "CANTIDAD_SOBRE");
+                    ValidadorGeneral.validarTamanioTexto(txtCantidadSobresEspeciales.getText(), 0, 4, "CANTIDAD_SOBRE_ESPECIAL");
+                    ValidadorGeneral.validarTextoVacio(txtCantidadSobresEspeciales.getText(), "CANTIDAD_SOBRE_ESPECIAL");
                     ((CajaEspecial) producto).setCantidadSobres(Integer.parseInt(txtCantidadSobresEspeciales.getText()));
                     isCantidadSobreEspecialValido = true;
                 } catch (Exception Ex) {
@@ -561,12 +477,15 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         
         boolean isFechaSalidaValido = false;
         try {
-            ValidadorGeneral.validarTamanioTexto(txtFechaSalida.getText(), 0, 10, "FECHA_SALIDA");
-            producto.setFechaSalida(txtFechaSalida.getText());
-            isFechaSalidaValido = true;
-        } catch (Exception Ex){
-            JOptionPane.showMessageDialog(this, "Error en fecha salida: " + Ex.getMessage());
-        }
+                java.util.Date fechaCl = FechaUtil.textoADate(txtFechaSalida.getText(), FechaUtil.DD_MM_YYYY);
+                String fechaSQL = FechaUtil.DateATexto(fechaCl, "yyyy-MM-dd");
+                producto.setFechaSalida(fechaSQL);
+                isFechaSalidaValido = true;  
+            } catch (java.text.ParseException e) {
+                JOptionPane.showMessageDialog(this, "Error en Fecha: Use el formato " + FechaUtil.DD_MM_YYYY);
+            } catch (Exception Ex){
+                JOptionPane.showMessageDialog(this, Ex.getMessage());
+            }
         
         boolean isDescripcionValido = false;
         try {
@@ -734,6 +653,36 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
 
     private void cmbOpcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpcionActionPerformed
         // TODO add your handling code here:
+        limpiarCampos();
+        
+        String opcion = (String) cmbOpcion.getSelectedItem();
+        
+        if ("Editar Productos".equals(opcion)) {
+            ocultarTodoMenosSKU();
+            btnLupa.setVisible(true);
+            btnGuardar.setText("Guardar Cambios");
+            btnGuardar.setVisible(true);
+            btnBorrar.setVisible(false);
+        } 
+        else if ("Agregar Productos".equals(opcion)) {
+            mostrarElementosGenerales();
+            btnLupa.setVisible(false);
+            lblTipo.setVisible(true);
+            cmbTipo.setVisible(true); 
+            btnGuardar.setText("Guardar");
+            btnGuardar.setVisible(true);
+            btnBorrar.setVisible(false);
+        } 
+        else if ("Borrar Productos".equals(opcion)) {
+            mostrarElementosGenerales();
+            btnLupa.setVisible(false); 
+            btnGuardar.setVisible(false);
+            btnBorrar.setVisible(true);
+        }
+        else {
+            btnLupa.setVisible(false);
+        }
+        
     }//GEN-LAST:event_cmbOpcionActionPerformed
 
     private void btnLupaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLupaActionPerformed
@@ -764,17 +713,30 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     txtLinea.setText(p.getLinea());
     txtStock.setText("" + p.getStock());
     txtPrecio.setText("" + p.getPrecio());
-    txtFechaSalida.setText(p.getFechaSalida());
+    try {
+        java.util.Date fechaSql = FechaUtil.textoADate(p.getFechaSalida(), "yyyy-MM-dd");
+        String fechaCl = FechaUtil.DateATexto(fechaSql, FechaUtil.DD_MM_YYYY);
+        txtFechaSalida.setText(fechaCl);
+    
+    }catch (Exception e) {
+        txtFechaSalida.setText(p.getFechaSalida());
+    }
     txtDescripcion.setText(p.getDescripcion());
 
     if (p instanceof CajaMazo){
         txtCantidadMazos.setText("" + ((CajaMazo) p).getCantidadPorCaja());
+        cmbTipo.setSelectedItem("Caja Mazos");
+        accionCajaMazo();
     }else if (p instanceof CajaSobre){
         txtCantidadSobre.setText("" + ((CajaSobre) p).getCantidadPorCaja());
+        cmbTipo.setSelectedItem("Caja Sobres");
+        accionCajaSobre();
     }else if (p instanceof CajaEspecial){
         txtCantidadSobresEspeciales.setText("" + ((CajaEspecial) p).getCantidadSobres());
         txtCartaPromocional.setText(((CajaEspecial) p).getCartasPromo());
         txtRegaloEspecial.setText(((CajaEspecial) p).getRegaloExtra());
+        cmbTipo.setSelectedItem("Caja Especial");
+        accionCajaEspecial();
 
 
 
@@ -798,6 +760,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLupaActionPerformed
     
       private void accionCajaMazo() {
+        mostrarElementosGenerales();
           //enable txt
         txtSKU.setEnabled(true);
         txtNombre.setEnabled(true);
@@ -821,22 +784,22 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtPrecio.setVisible(true);
         txtFechaSalida.setVisible(true);
         txtDescripcion.setVisible(true);
-        txtCantidadSobre.setVisible(true);
+        txtCantidadSobre.setVisible(false);
         txtCantidadMazos.setVisible(true);
-        txtCantidadSobresEspeciales.setVisible(true);
-        txtCartaPromocional.setVisible(true);
-        txtRegaloEspecial.setVisible(true);
-        lblCantidadSobre.setVisible(true);
+        txtCantidadSobresEspeciales.setVisible(false);
+        txtCartaPromocional.setVisible(false);
+        txtRegaloEspecial.setVisible(false);
+        lblCantidadSobre.setVisible(false);
         lblCantidadMazo.setVisible(true);
-        lblCantidadSobreEspecial.setVisible(true);
-        lblCartaPromo.setVisible(true);
-        lblRegaloExtra.setVisible(true);
-        this.pack(); 
+        lblCantidadSobreEspecial.setVisible(false);
+        lblCartaPromo.setVisible(false);
+        lblRegaloExtra.setVisible(false);
         this.setLocationRelativeTo(null);
         
     }
     
     private void accionCajaSobre() {
+        mostrarElementosGenerales();
         //enable txt
         txtSKU.setEnabled(true);
         txtNombre.setEnabled(true);
@@ -861,21 +824,21 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtFechaSalida.setVisible(true);
         txtDescripcion.setVisible(true);
         txtCantidadSobre.setVisible(true);
-        txtCantidadMazos.setVisible(true);
-        txtCantidadSobresEspeciales.setVisible(true);
-        txtCartaPromocional.setVisible(true);
-        txtRegaloEspecial.setVisible(true);
+        txtCantidadMazos.setVisible(false);
+        txtCantidadSobresEspeciales.setVisible(false);
+        txtCartaPromocional.setVisible(false);
+        txtRegaloEspecial.setVisible(false);
         lblCantidadSobre.setVisible(true);
-        lblCantidadMazo.setVisible(true);
-        lblCantidadSobreEspecial.setVisible(true);
-        lblCartaPromo.setVisible(true);
-        lblRegaloExtra.setVisible(true);
-        this.pack(); 
+        lblCantidadMazo.setVisible(false);
+        lblCantidadSobreEspecial.setVisible(false);
+        lblCartaPromo.setVisible(false);
+        lblRegaloExtra.setVisible(false);
         this.setLocationRelativeTo(null);
         
     }
     
     private void accionCajaEspecial() {
+        mostrarElementosGenerales();
         //enable txt
         txtSKU.setEnabled(true);
         txtNombre.setEnabled(true);
@@ -899,21 +862,71 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
         txtPrecio.setVisible(true);
         txtFechaSalida.setVisible(true);
         txtDescripcion.setVisible(true);
-        txtCantidadSobre.setVisible(true);
-        txtCantidadMazos.setVisible(true);
+        txtCantidadSobre.setVisible(false);
+        txtCantidadMazos.setVisible(false);
         txtCantidadSobresEspeciales.setVisible(true);
         txtCartaPromocional.setVisible(true);
         txtRegaloEspecial.setVisible(true);
-        lblCantidadSobre.setVisible(true);
-        lblCantidadMazo.setVisible(true);
+        lblCantidadSobre.setVisible(false);
+        lblCantidadMazo.setVisible(false);
         lblCantidadSobreEspecial.setVisible(true);
         lblCartaPromo.setVisible(true);
         lblRegaloExtra.setVisible(true);
-        this.pack(); 
         this.setLocationRelativeTo(null);
 
     }
-    
+    private void ocultarTodoMenosSKU() {
+        lblNombre.setVisible(false);
+        lblEdicion.setVisible(false);
+        lblLinea.setVisible(false);
+        lblTipo.setVisible(false);
+        lblStock.setVisible(false);
+        lblPrecio.setVisible(false);
+        lblFechaSalida.setVisible(false);
+        lblDescripcion.setVisible(false);
+
+        txtNombre.setVisible(false);
+        txtEdicion.setVisible(false);
+        txtLinea.setVisible(false);
+        cmbTipo.setVisible(false); 
+        txtStock.setVisible(false);
+        txtPrecio.setVisible(false);
+        txtFechaSalida.setVisible(false);
+        txtDescripcion.setVisible(false);
+
+        lblCantidadMazo.setVisible(false);
+        lblCantidadSobre.setVisible(false);
+        lblRegaloExtra.setVisible(false);
+        lblCartaPromo.setVisible(false);
+        lblCantidadSobreEspecial.setVisible(false);
+        
+        txtCantidadMazos.setVisible(false);
+        txtCantidadSobre.setVisible(false);
+        txtRegaloEspecial.setVisible(false);
+        txtCartaPromocional.setVisible(false);
+        txtCantidadSobresEspeciales.setVisible(false);
+        lblSKU.setVisible(true);
+        txtSKU.setVisible(true);
+        txtSKU.setEnabled(true);
+    }
+    private void mostrarElementosGenerales() {
+        lblNombre.setVisible(true);
+        lblEdicion.setVisible(true);
+        lblLinea.setVisible(true);
+        lblTipo.setVisible(true);
+        lblStock.setVisible(true);
+        lblPrecio.setVisible(true);
+        lblFechaSalida.setVisible(true);
+        lblDescripcion.setVisible(true);
+        txtNombre.setVisible(true);
+        txtEdicion.setVisible(true);
+        txtLinea.setVisible(true);
+        txtStock.setVisible(true);
+        txtPrecio.setVisible(true);
+        txtFechaSalida.setVisible(true);
+        txtDescripcion.setVisible(true);
+        cmbTipo.setVisible(true);
+    }
     private void limpiarCampos() {
         txtSKU.setText("");
         txtNombre.setText("");
@@ -962,6 +975,7 @@ public class DistribuidoraVIew extends javax.swing.JFrame {
     private javax.swing.JLabel lblSKU;
     private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblTipo;
+    public java.awt.Label lblTitulo;
     private javax.swing.JTextField txtCantidadMazos;
     private javax.swing.JTextField txtCantidadSobre;
     private javax.swing.JTextField txtCantidadSobresEspeciales;
